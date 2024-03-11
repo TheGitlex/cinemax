@@ -1,0 +1,271 @@
+/* this will remove all the default margin and padding from elements */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font: inherit;
+}
+
+body {
+  /* width: 100vw; */
+  /* height: 100%; */
+
+  background-repeat: repeat-y;
+  background-size: cover;
+  background-position: center center;
+  /* Adjust as needed */
+
+  background: radial-gradient(circle, rgb(20, 94, 163), rgb(0, 0, 0));
+}
+
+img,
+br,
+#slideshow * {
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.778);
+  z-index: -1;
+}
+
+
+#left_side,
+#right_side {
+  width: 20%;
+
+  margin-top: -10px;
+}
+
+
+
+
+
+#searchnav {
+  background-color: rgba(67, 67, 67, 0.467);
+  border-radius: 10px;
+  height: 80px;
+  padding-top: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+#searchnav select,
+input {
+  height: 50px;
+  width: 200px;
+  font: bold;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+
+}
+
+#searchnav select,
+option {
+  cursor: pointer;
+}
+
+#searchnav input {
+  cursor: text;
+  padding: 4px 10px;
+
+}
+
+#searchbutton {
+  background-image: url(https://icon-library.com/images/svg-search-icon/svg-search-icon-9.jpg);
+  background-size: cover;
+  height: 40px;
+  width: 40px;
+  border: none;
+  cursor: pointer;
+  background-color: transparent;
+  transition: 0.5s;
+
+}
+
+#searchbutton:hover {
+  filter: brightness(0.7);
+  scale: 1.1;
+
+}
+
+#searchnav label {
+
+  font-size: 25px;
+  font-weight: 600;
+  text-align: center;
+  background: linear-gradient(to right, #c2fffd, #2cc7f6);
+  background-clip: text;
+  color: transparent;
+  font-family: 'Poppins', sans-serif;
+}
+
+footer {
+  background-color: rgb(120, 120, 120);
+}
+
+footer p {
+  color: white;
+}
+
+
+
+
+#backtotopbutton {
+  display: inline-block;
+  background-color: #00d5ff;
+  width: 60px;
+  height: 60px;
+  text-align: center;
+  border-radius: 10px;
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  transition: background-color .3s,
+    opacity .5s, visibility .5s;
+  opacity: 0;
+  visibility: hidden;
+  z-index: 1000;
+}
+
+#backtotopbutton::after {
+  content: "↑";
+  font-family: FontAwesome;
+  font-weight: normal;
+  font-style: normal;
+  font-size: 2em;
+  line-height: 50px;
+  color: #fff;
+}
+
+#backtotopbutton:hover {
+  cursor: pointer;
+  background-color: #333;
+}
+
+#backtotopbutton:active {
+  background-color: #555;
+}
+
+#backtotopbutton.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.menuitem {
+  width: 100%;
+  /* Adjust the width based on your needs */
+  text-align: center;
+  padding: 10px;
+  font-weight: 1000;
+  text-transform: uppercase;
+  color: white;
+  font-family: 'Poppins', sans-serif;
+  cursor: pointer;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.menuitem:hover {
+  background-color: rgba(132, 132, 132, 0.407);
+  transition: 0.3s;
+}
+
+.menuitem img {
+  width: 150px;
+  object-fit: cover;
+}
+
+.nalichnost {
+ font-weight: 100;
+  margin-bottom: 5px;
+  border-radius: 3px;
+  width: 100%;
+  filter: saturate(0.75)
+}
+#tagsdiv {
+  margin-top: 20px;
+  padding: 5px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  align-items: flex-start;
+  gap: 10px;
+  border-radius: 20px;
+  border-bottom: 3px solid rgb(0, 172, 172);
+}
+#tagsdiv button{
+  background: none;
+  border: none;
+  color: rgb(241, 241, 241);
+  font-size: 1.5rem;
+  font-family: "Poppins", sans-serif;
+  border-radius: 4px;
+  transition: 0.3s;
+  /* text-shadow: -1px -1px 0 #0000007b, 1px -1px 0 #0000007d, -1px 1px 0 #0000009c, 1px 1px 0 #00000083;  */
+}
+#tagsdiv button:hover{
+  color: rgb(46, 231, 231);
+  transition: 0.3s;
+  background-color: #28bfde39;
+  border-radius: 4px;
+
+  
+}
+ #tagsdiv button.selected{
+ 
+  background: radial-gradient( rgba(0, 255, 255, 0.556), rgba(0, 180, 251, 0.529));
+   /* For older versions of WebKit-based browsers */
+
+  
+}
+
+#menu {
+  margin-top: 50px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  align-items: flex-start;
+  gap: 10px;
+  background-color: #181818;
+  padding: 10px;
+  border-radius: 10px;
+  border: 5px solid black;
+}
+#tagsdiv{
+ margin-top: 10px;
+ background-color: rgba(67, 67, 67, 0.467);
+ border-radius: 10px;
+ height: 80px;
+ display: flex;
+ justify-content: center;
+ gap: 1rem;
+}
+#addremove{
+  text-align: center;
+  background-color: rgba(82, 82, 82, 0.682);
+ 
+  
+}
+
+#edit{
+  display: flex;
+  flex-direction: column;
+  margin-top: 400px;
+  align-items: center;
+  background-color: rgba(82, 82, 82, 0.682);
+  width: 20rem;
+ 
+}
+button:hover{
+  background-color: rgb(217, 217, 217) !important;
+  border: 3px solid black;
+}

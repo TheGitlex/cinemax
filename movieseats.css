@@ -1,0 +1,171 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font: inherit;
+  }
+  header{
+    height: 4.44rem !important;
+  }
+  #cinemaxtitle{
+    margin-top: 0.9rem !important;
+  }
+  @media (max-width: 575.98px) { 
+    
+    
+    }
+    
+    /* // Small devices (landscape phones, less than 768px) */
+    @media (max-width: 767.98px) { 
+    
+        
+     
+    }
+    
+    /* // Medium devices (tablets, less than 992px) */
+    @media (max-width: 991.98px) { 
+     
+     }
+    
+    /* // Large devices (desktops, less than 1200px) */
+    @media (max-width: 1199.98px) { 
+        .seat{
+            height: 25px !important;
+            width: 25px !important;
+         }
+         .screen img{
+            width: 50vw;
+      }
+    }
+
+.cinema-container {
+    text-align: center;
+    margin-top: 1rem;
+    width: 50vw;
+    background-color: rgb(142, 142, 142);
+    padding: 5px;
+    border-radius: 10px;
+    border: 5px solid black;
+    user-select: none;
+    overflow: auto !important;
+  }
+  .screen {
+    color: white;
+    padding: 10px;
+    font-size: 20px;
+    margin-bottom: 20px;
+  }
+  .row {
+    margin-bottom: 10px;
+    --bs-gutter-x: 0rem !important;
+  }
+  .seat {
+    width: 30px;
+    height: 30px;
+    border: 1px solid rgb(40, 40, 40);
+    display: inline-block;
+    border-radius: 5px;
+    margin: 2px;
+    cursor: pointer;
+    color: rgb(220, 220, 220);
+    background-color: rgb(17, 151, 17);
+    padding: auto;
+    text-align: center;
+  }
+  .labelseat{
+    width: 30px;
+    height: 30px;
+    border: 1px solid rgb(40, 40, 40);
+    display: inline-block;
+    border-radius: 5px;
+    margin: 2px;
+    color: rgb(220, 220, 220);
+    background-color: rgb(17, 151, 17);
+    padding: auto;
+    text-align: center;
+  }
+  .seat:hover{
+    background-color: rgb(208, 135, 0);
+  }
+  .taken{
+    background-color: rgb(151, 17, 17) !important;
+  }
+  .selected{
+    background-color: rgb(208, 135, 0);
+  }
+  .row-number {
+    display: inline-block;
+    width: 30px;
+    margin-right: 10px; 
+    display: none;
+  }
+
+  #aligner {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+body {
+  /* width: 100vw; */
+  /* height: 100%; */
+  /* background-image: url(background.jpg); */
+  background-repeat: repeat-y;
+  background-size: cover;
+  background-position: center center;
+  /* Adjust as needed */
+  background-color: rgb(155, 155, 155);
+  
+  font-family: "Poppins", sans-serif;
+
+  background: radial-gradient(circle, rgb(10, 51, 90), rgb(0, 0, 0));
+}
+#info_box{
+    margin-top: 2rem;
+    border: 5px solid black;
+    border-radius: 5px;
+    background-color: rgb(142, 142, 142);
+    padding: 5px;
+    text-align: center;
+}
+#info_box p{
+    color: rgb(26, 26, 26);
+    font-weight: 700;
+    font-size: larger;
+}
+.col-lg-9, .col-lg-3{
+  padding: 0.5rem !important;
+}
+
+.row-number {
+  position: absolute;
+  left: -2.5rem; /* Adjust the position as needed */
+  top: 0;
+  transform: translateY(50%);
+  z-index: 1; /* Ensure row numbers appear above seats */
+  font-weight: bold; /* Make row numbers bold */
+}
+
+.hall-info {
+  padding: 5px;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content:space-around;
+  background-color: grey;
+  border-radius: 5px;
+  border: 2px solid black;
+}
+.hall-info p{
+  font-weight: 600;
+  color: black;
+}
+
+#testcodebutton{
+  --bs-btn-padding-x: 0.3rem !important;
+  --bs-btn-padding-y: 0.0rem !important;
+}
+span, h6{
+  font-size: 1rem;
+}
