@@ -135,16 +135,6 @@ if ($result->num_rows > 0) {
 	
 		</div> <br>
 
-		
-
-			
-		<!-- <div id="codegeneration" style="display:none">
-		<input id="codeInput" placeholder="XXXX" style="text-align:center;"> <br> <br>
-		<label id="discount_info" style="color:white; font-size: 20px; font-weight:500;"> </label> <br> <br>
-		<button id="generateButton" onclick="generateCode(), startTimer()">Генерирай</button>
-		<button id="testCodeButton" disabled onclick="testCode()"> Опитай </button> <br> <br>
-			</div> -->
-
 	</div>
 
 	

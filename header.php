@@ -407,6 +407,7 @@ body::-webkit-scrollbar {
    
     display: block !important;
 }
+
 header{
     padding: 5px !important;
 }
@@ -434,9 +435,9 @@ header{
     #extract{
         zoom: 1.35 !important;
     }
-    .slider, #slideshow{
+    /* .slider, #slideshow{
             height: 400px !important;
-        } 
+        }  */
 }
 @-moz-document url-prefix() {
     @media (max-width: 1920px) {
@@ -475,7 +476,7 @@ header{
         <?php
             if (isset($_COOKIE['user_name']) && $user_result == 1) {
                 // User is logged in as admin
-                echo '<a href="adminplace.php"> Admin </a>';
+                echo '<a href="adminplace.php"> Admin <i class="fa fa-wrench"></i> </a>';
             }
             ?>
         <?php
@@ -526,9 +527,10 @@ header{
     <nav id="mobilenav" style="margin-top:70px; display:none; background:black; position:fixed; z-index:10; width:100vw; padding:10px; font-size:1.5rem;">
         <ul >
             <?php
+            
              if (isset($_COOKIE['user_name']) && $user_result == 1) {
                 // User is logged in as admin
-                echo '<li><a href="adminplace.php"> Admin </a> </li>';
+                echo '<li><a href="adminplace.php"> Admin <i class="fa fa-wrench"></i></a> </li>';
             }
             if (isset($_COOKIE['user_name'])){
                 echo '<li> <div class="user-name"><a href="profile.php">' . $f_name . ' <i class="fa fa-user"></i></a></li>';

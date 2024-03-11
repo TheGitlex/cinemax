@@ -150,8 +150,7 @@ if ( $active==0 && $admin == 0) {
                 <div id="icon">
                     <img id="extract"  src="icons/<?php echo $icon; ?>" alt=""  style=" border-radius: 10px; width:70%">
                 </div>
-                
-
+            
 
                 <div id="div3">
                 <p>

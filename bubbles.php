@@ -51,21 +51,22 @@
   <div class="bubble"></div>
 </div>
 <style>
-    body {
+    /* body {
         background-image: url(background.jpg);
   background-repeat: repeat-y;
   background-size: cover;
   background-position: center center;
-margin-top: -60px;
-}
+
+} */
 
 .bubbles {
     position: absolute;
     z-index: -10;
-display:none;
   width: 100%;
   height: 100vh;
   overflow: hidden;
+  opacity: 0.035;
+
 }
 
 .bubble {

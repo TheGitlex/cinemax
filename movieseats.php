@@ -69,7 +69,7 @@ if ($movieId && $projectionId && $time && $date) {
         <div class="hall-info">
        <p>Зала</p>   
         <p><?php echo $hall; ?> </p>
-      
+     
       </div>
      
         
@@ -77,6 +77,9 @@ if ($movieId && $projectionId && $time && $date) {
           
           <div id="halldiv" style="display: flex; justify-content: center; gap: 6rem;">
           
+          
+          
+         
           <!-- Left section -->
           <div class="section" style="float: left;">
           <?php
@@ -339,13 +342,14 @@ document.addEventListener('click', function(event) {
     } else if (numSeats < 10) {
       event.target.classList.add('selected');
       numSeats++;
+      
     }
     
     seatsLabel.textContent = numSeats;
     totalPrice = numSeats * 12.50; // Calculate total price based on the number of selected seats
     totalLabel.textContent = totalPrice.toFixed(2) + ' BGN';
     totalLabel2.textContent = totalPrice.toFixed(2) + ' BGN'; // Update the second total label
-    discountAmountElement.textContent = `-0.00 BGN`;
+    document.getElementById("discountAmount").textContent = `-0.00`;
   }
 });
 

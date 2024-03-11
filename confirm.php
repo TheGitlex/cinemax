@@ -97,7 +97,7 @@ input:-webkit-autofill{
 <body>
     
 <?php include("header.php") ?>
-
+<?php include("bubbles.php") ?>
 
         <div class="vh-100 d-flex justify-content-center align-items-center">
             <div class="col-md-4" style="border: 5px solid black; border-top: none;">
@@ -113,15 +113,18 @@ input:-webkit-autofill{
                     </div>
                     <div class="text-center">
                         <h1>Благодарим !</h1>
-                        <p>Проверете поръчката на имейл или в профил. </p>
-                        <p>Опитайте да спечелите код за промоция при следваща покупка </p>
+                        <p>Проверете поръчката на имейл или в <a href="profile.php">профил</a>. </p>
+                        <hr style=" border-top: 2.5px solid cyan;">
 
-                        <div id="codegeneration">
-    <input id="codeInput" placeholder="XXXX" style="text-align: center;">
-    <p id="discount_info" style="color: white; font-size: 20px; font-weight: 500; margin-top: 10px;"></p>
-    <button id="generateButton" onclick="generateCode(), startTimer()"><i class="fa fa-retweet" style="color: white; font-size: 2rem; "></i></button>
-    <button id="testCodeButton" disabled onclick="testCode()" style="display: none;"><i class="fa fa-check" style="color: white; font-size: 2rem; "></i></button>
-</div>
+                        <div style="background:rgba(10, 10, 10, 0.577); padding: 10px; border: 5px solid black;border-radius:5px;">
+                          <p>Опитайте да спечелите код за промоция при следваща покупка </p>
+                          <div id="codegeneration">
+                              <input id="codeInput" placeholder="XXXX" style="text-align: center;">
+                              <p id="discount_info" style="color: white; font-size: 20px; font-weight: 500; margin-top: 10px;"></p>
+                              <button id="generateButton" onclick="generateCode(), startTimer()"><i class="fa fa-retweet" style="color: white; font-size: 2rem; "></i></button>
+                              <button id="testCodeButton" disabled onclick="testCode()" style="display: none;"><i class="fa fa-check" style="color: white; font-size: 2rem; "></i></button>
+                          </div>
+                        </div>
 <br>
                         <button class="btn btn-outline-success" onclick="window.location.href='main.php'">Обратно</button>
                     </div>
