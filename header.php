@@ -365,7 +365,7 @@ body::-webkit-scrollbar {
     font-size: 1rem;
     
   }
- 
+
   .seat:hover{
     background-color: rgb(208, 90, 0);
   }

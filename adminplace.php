@@ -177,6 +177,28 @@ if ( $user_result == 0) {
 				<?php }
 			?>
 			</div>
+
+
+            <div style="margin-top: 5rem; background-color:rgba(132, 132, 132, 0.407); padding:10px; border-radius:5px; border: 5px solid black;">
+    <?php
+    // Assuming you have established a database connection
+    
+    // Selecting user information from the database
+    $userssql = "SELECT * FROM users order by email ASC";
+    $result = mysqli_query($conn, $userssql);
+    
+    // Checking if there are any users
+    if (mysqli_num_rows($result) > 0) {
+        // Loop through each user
+        while ($row = mysqli_fetch_assoc($result)) {
+            // Displaying a link for each user's email
+            echo '<a class="usera" style=" color: white;" href="profileadmin.php?uid=' . $row['id_user'] . '">' . $row['email'] . '</a><br>';
+        }
+    } else {
+        echo "No users found.";
+    }
+    ?>
+</div>
 		</div>
 
 		<div id="right_side">

@@ -180,6 +180,13 @@ footer p {
   background-color: rgba(132, 132, 132, 0.407);
   transition: 0.3s;
 }
+.usera{
+  text-decoration: none;
+  font-size: 1.2rem;
+}
+.usera:hover{
+  text-decoration: underline;
+}
 
 .menuitem img {
   width: 150px;

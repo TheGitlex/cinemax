@@ -13,15 +13,16 @@
             $row = $result3->fetch_assoc();
 
             // Check the user's role
-            $f_name = $row['f_name'];
+            $f_name2 = $row['f_name'];
             $l_name = $row['l_name'];
             $email = $row['email'];
             $birth = $row['birth'];
             $joined = $row['joined'];
             $password=$row['password'];
-            $pfp = $row['pfp'];
+            $pfp2 = $row['pfp'];
             $formattedDate = date('d/m/Y', strtotime($joined));
             $birth = date('d/m/Y', strtotime($birth)); // Assuming the role is stored in the 'f_name' column
+            
 
             // Now you can use $user_result to check if the user is an admin
         }
@@ -29,11 +30,28 @@
 
 
 
-    if ( isset($_COOKIE['user_name']) ==false) {
-        // Redirect to error.php
-        header("Location: main.php");
-        exit();
+if ($user_email) {
+    // SQL query to get user information for the currently logged-in user
+    $sql = "SELECT * FROM users WHERE email = '$user_email'";
+    $result36 = $conn->query($sql);
+
+    if ($result36->num_rows > 0) {
+        // Fetch the user information
+        $row = $result36->fetch_assoc();
+
+        // Check the user's role
+        $user_result = $row['admin']; // Assuming the role is stored in the 'f_name' column
+
+        // Now you can use $user_result to check if the user is an admin
     }
+}
+
+if ( $user_result == 0) {
+    // Redirect to error.php
+    header("Location: error.php");
+    exit();
+}
+
 
 
     $sql = "SELECT 
@@ -78,7 +96,7 @@ $result = $conn->query($sql);
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Профил - <?php echo $f_name ?></title>
+    <title> Профил - <?php echo $f_name2 ?></title>
   <link rel="stylesheet" href="profile.css">
    
     <link rel="icon" href="logo.png" />
@@ -87,7 +105,7 @@ $result = $conn->query($sql);
 
   </head>
 
-<body>
+<body style="background: radial-gradient(circle, rgb(10, 90, 46), rgb(0, 0, 0));">
 
 
 <?php include("header.php") ?>
@@ -110,7 +128,7 @@ $result = $conn->query($sql);
 </div> -->
 
 <div class="container">
-<p class="menutitle"> Профил </p>
+<p class="menutitle"><?php echo $f_name2;?> профил </p>
     <div class="main-body">
     
     
@@ -119,10 +137,10 @@ $result = $conn->query($sql);
               <div class="card">
                 <div class="card-body">
                   <div class="d-flex flex-column align-items-center text-center">
-                  <div class="profile-picture-container" onclick="openLinkInput()">
-    <img src="<?php echo $pfp; ?>" alt="грешен линк" class="rounded-circle" width="150">
+                  <div class="profile-picture-container" >
+    <img src="<?php echo $pfp2; ?>" alt="грешен линк" class="rounded-circle" width="150">
     <div class="overlay2">
-        <div class="overlay2-text">Промени</div>
+        <!-- <div class="overlay2-text">Промени</div> -->
     </div>
 </div> <br>
 
@@ -132,7 +150,7 @@ $result = $conn->query($sql);
     <span class="close" onclick="closeLinkInput()">&times;</span>
 </div>
                     <div class="mt-3">
-                      <h4><?php echo $f_name;?> <?php echo $l_name;?></h4>
+                      <h4><?php echo $f_name2;?> <?php echo $l_name;?></h4>
                       <p class="text-secondary mb-1" style="color: rgb(141 141 141) !important;">Създаден <?php echo $formattedDate;?></p>
                       <!-- <p class="text-muted font-size-sm">Bay Area, San Francisco, CA</p> -->
                       <!-- <button class="btn btn-primary">Edit</button>
@@ -152,7 +170,7 @@ $result = $conn->query($sql);
                         <h6 class="mb-0">Име</h6>
                     </div>
                     <div class="col-sm-9 text-secondary">
-                        <input type="text" class="form-control" id="inputName" value="<?php echo $f_name;?>" placeholder="<?php echo $f_name;?>" disabled>
+                        <input type="text" class="form-control" id="inputName" value="<?php echo $f_name2;?>" placeholder="<?php echo $f_name;?>" disabled>
                     </div>
                 </div>
                 <hr>
@@ -197,9 +215,9 @@ $result = $conn->query($sql);
                 
                 <div class="row">
                     <div class="col-sm-12">
-                        <button type="button" id="editButton" class="btn btn-info"><i class="fa fa-pencil" style="color: white"></i></button>
-                        <button type="button" id="saveChangesButton" class="btn btn-success" style="display: none;">Запази Промени</button>
-                          <button type="button" id="deleteAcc" class="btn btn-info" onclick="test()">Изтрий профил</button>
+                        <!-- <button type="button" id="editButton" class="btn btn-info"><i class="fa fa-pencil" style="color: white"></i></button> -->
+                        <!-- <button type="button" id="saveChangesButton" class="btn btn-success" style="display: none;">Запази Промени</button>
+                          <button type="button" id="deleteAcc" class="btn btn-info" onclick="test()">Изтрий профил</button> -->
                     </div>
                 </div>
             </form>
@@ -215,7 +233,7 @@ $result = $conn->query($sql);
 
 
     <div class="container" style="margin-top: 10px !important;">
-    <p class="menutitle"> За Мен </p>
+    <p class="menutitle"> За Него </p>
     <div class="main-body">
           <div class="row gutters-sm">
             <div class="col-md-4 mb-3">
@@ -239,7 +257,7 @@ if ($userId) {
     $sql3 = "SELECT r.rating_value, m.title,m.icon, m.id_movie, m.active
             FROM ratings r
             JOIN movies m ON r.id_movie = m.id_movie
-            WHERE r.id_user = $userId AND active=1 ORDER BY rating_value DESC" ;
+            WHERE r.id_user = {$_GET['uid']} AND active=1 ORDER BY rating_value DESC" ;
 
     // Execute the query
     $result3 = $conn->query($sql3);
@@ -293,7 +311,7 @@ if ($userId) {
     <div class="col-md-6 text-md-end">
         <?php
         // Query to calculate the total price of tickets purchased by the user
-        $totalPriceQuery = "SELECT SUM(price) AS total_price FROM tickets WHERE id_user = $userId";
+        $totalPriceQuery = "SELECT SUM(price) AS total_price FROM tickets WHERE id_user = {$_GET['uid']}";
         // Execute the query to get the total price
         $totalPriceResult = $conn->query($totalPriceQuery);
         // Check if the query was successful
@@ -302,8 +320,9 @@ if ($userId) {
             $totalPriceRow = $totalPriceResult->fetch_assoc();
             $totalPrice = $totalPriceRow['total_price'];
 
-            // Output the total price inside the <h6> element
-            echo "<h6>Общо: $totalPrice</h6>";
+            if($totalPrice>0.00)
+            echo "<h6>Общо: $totalPrice</h6>"; 
+        else echo "<h6>Общо: 0.00</h6>";
         }
         ?>
     </div>

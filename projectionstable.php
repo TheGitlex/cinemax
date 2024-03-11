@@ -88,7 +88,7 @@ if ($movieId) {
 <?php
 if (isset($_COOKIE['user_name']) && $user_result == 1) {
     // User is logged in as admin
-    echo '<div class="edit" style="margin-top:120vh; left:0">
+    echo '<div class="edit" style="margin-top:76rem; left:0">
     <input type="hidden" id="idmovie" value="' . $movieId . '">
     <input id="datetime" type="datetime-local" placeholder="Date and Time">
     <input id="hall" placeholder="hall" >

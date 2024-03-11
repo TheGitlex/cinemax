@@ -303,7 +303,9 @@ if ($userId) {
             $totalPrice = $totalPriceRow['total_price'];
 
             // Output the total price inside the <h6> element
-            echo "<h6>Общо: $totalPrice</h6>";
+            if($totalPrice>0.00)
+            echo "<h6>Общо: $totalPrice</h6>"; 
+        else echo "<h6>Общо: 0.00</h6>";
         }
         ?>
     </div>
