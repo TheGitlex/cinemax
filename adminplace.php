@@ -241,7 +241,7 @@ echo '</div>';
 </div>
 <br>
 <?php
-$codesql = "SELECT * FROM discounts WHERE active=1 ORDER BY code ASC";
+$codesql = "SELECT * FROM discounts WHERE active=1 ORDER BY amount DESC";
 $coderesult = $conn->query($codesql);
 echo '<div style="height:200px;overflow:auto">';
 if ($coderesult->num_rows > 0) {

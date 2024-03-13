@@ -17,7 +17,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thanks</title>
+    <title>Закупено!</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -91,7 +91,9 @@ input:-webkit-autofill{
     -webkit-text-fill-color: #7be5ff;
     box-shadow: inset 0 0 20px 20px #23232300;
 }
-
+#win{
+  display: none;
+}
  </style>
 </head>
 <body>
@@ -99,10 +101,13 @@ input:-webkit-autofill{
 <?php include("header.php") ?>
 <?php include("bubbles.php") ?>
 
+<div id="win" style="width:100vw;height: 100vh; background-image:url(https://www.icegif.com/wp-content/uploads/icegif-3602.gif);position:absolute; opacity:0.1; background-size:contain"></div>
+
         <div class="vh-100 d-flex justify-content-center align-items-center">
             <div class="col-md-4" style="border: 5px solid black; border-top: none;">
                 <div class="border border-3 border-success"></div>
-                <div class="card  bg-white shadow p-5" style="background-color: #161616 !important;">
+                <div class="card  bg-white shadow p-5" style="background-color: #161616 !important;  background-image: url(https://static.vecteezy.com/system/resources/thumbnails/009/695/745/small/seamless-wavy-line-pattern-png.png);
+  background-size: cover; filter: brightness(110%);">
                     <div class="mb-4 text-center">
                         <svg xmlns="http://www.w3.org/2000/svg" class="text-success" width="75" height="75"
                             fill="currentColor" class="bi bi-check-circle" viewBox="0 0 16 16">
@@ -113,15 +118,15 @@ input:-webkit-autofill{
                     </div>
                     <div class="text-center">
                         <h1>Благодарим !</h1>
-                        <p>Проверете поръчката на имейл или в <a href="profile.php">профил</a>. </p>
+                        <p style="font-size:1.15rem;">Проверете поръчката на имейл или в <a href="profile.php">профил.</a> </p>
                         <hr style=" border-top: 2.5px solid cyan;">
 
                         <div style="background:rgba(10, 10, 10, 0.577); padding: 10px; border: 5px solid black;border-radius:5px;">
-                          <p>Опитайте да спечелите код за промоция при следваща покупка </p>
+                          <p>Играйте за промокод при следваща покупка и го използвайте преди друг!</p>
                           <div id="codegeneration">
                               <input id="codeInput" placeholder="XXXX" style="text-align: center;">
                               <p id="discount_info" style="color: white; font-size: 20px; font-weight: 500; margin-top: 10px;"></p>
-                              <button id="generateButton" onclick="generateCode(), startTimer()"><i class="fa fa-retweet" style="color: white; font-size: 2rem; "></i></button>
+                              <button id="generateButton" onclick="generateCode(), startTimer()"><i class="fa fa-rotate-left" style="color: white; font-size: 2rem; "></i></button>
                               <button id="testCodeButton" disabled onclick="testCode()" style="display: none;"><i class="fa fa-check" style="color: white; font-size: 2rem; "></i></button>
                           </div>
                         </div>
@@ -131,6 +136,8 @@ input:-webkit-autofill{
                 </div>
             </div>
         </div>
+
+       
     </body>
 
 </html>

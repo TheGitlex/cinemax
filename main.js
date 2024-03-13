@@ -162,6 +162,12 @@ function testCode() {
         resultLabel.innerHTML = `🎉Намаление: ${discountAmount}%🎉`;
         resultLabel.style.color = "rgb(0, 184, 68)";
         document.getElementById("codeInput").style.border = "2px solid green";
+        document.getElementById("win").style.display = "inline";
+//         var bubbles = document.getElementsByClassName("bubbles");
+// for (var i = 0; i < bubbles.length; i++) {
+//     bubbles[i].style.display = "none";
+// }
+
       } else {
         resultLabel.innerHTML = "Опитай пак следваща поръчка.";
         resultLabel.style.color = "rgb(171, 19, 19)";

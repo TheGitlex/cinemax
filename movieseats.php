@@ -43,7 +43,7 @@ if ($movieId && $projectionId && $time && $date) {
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ticket</title>
+<title>Билет</title>
 <link rel="icon" href="logo.png" />
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -386,6 +386,7 @@ document.addEventListener('click', function(event) {
         if (response.ok) {
             // If insertion is successful, send email
             sendEmail();
+            updateCodeInput();
         } else {
             console.error('Error inserting data');
         }
@@ -419,6 +420,35 @@ document.addEventListener('click', function(event) {
         })
         .catch(error => console.error('Error:', error));
     }
+    var codeValue = document.getElementById('codeInput').value;
+    
+    function updateCodeInput() {
+    // Get the code from the input field
+    
+
+    // Send the code value to the PHP script
+    fetch('check_discount.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: 'code=' + encodeURIComponent(codeValue)
+    })
+    .then(response => response.text())
+    .then(response => {
+        if (response === 'success') {
+            // Code deactivated successfully
+            // alert('Code deactivated successfully!');
+        } else {
+            // Error occurred
+            // alert('Error updating code input: ' + response);
+        }
+    })
+    .catch(error => console.log('Error updating code input: ' + error));
+}
+
+
+
 }
 
 
