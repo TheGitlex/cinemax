@@ -8,7 +8,7 @@
 body {
   /* width: 100vw; */
   /* height: 100%; */
-  background-image: url(background.jpg);
+  background-image: url("background3.jpg");
   background-repeat: repeat-y;
   background-size: cover;
   background-position: center center;
@@ -22,6 +22,7 @@ body {
   position: relative;
   margin: 50px auto;
   width: 200px;
+
 }
 
 .input-container input[type="email"],

@@ -324,7 +324,7 @@ transition: 0.3s;
   width: 20rem; top:0px;
  
 }
-#edit input, .edit input{
+#edit input, .edit input, #edit textarea{
   width: 150px;
   height: 40px;
   border-radius: 10px;

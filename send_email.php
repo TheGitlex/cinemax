@@ -50,7 +50,7 @@ function sendEmail($movieId, $time, $date, $hall, $seatNumbers, $price) {
         $mail->Port = 587; // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
 
         // Recipients
-        $mail->setFrom('cinemax@gmail.com', 'Cinemax');
+        $mail->setFrom('alexiliev111@gmail.com', 'Cinemax');
         $mail->addAddress($recipientEmail, ''); // Add a recipient from the cookie
 
         // Content
@@ -60,8 +60,18 @@ function sendEmail($movieId, $time, $date, $hall, $seatNumbers, $price) {
         $mail->Subject = '=?UTF-8?B?' . base64_encode('Потвърждение за билет') . '?='; // Subject with Bulgarian text
 
         // Construct email body with movie details, selected seats, and price
-        $mail->Body = "Филм: $movieTitle<br> От: $time<br>На: $date <br>Зала: $hall <br>Място: " . implode(', ', explode(',', $seatNumbers)) . "<br><br>Платено: $price лв ";
-        $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+        $mail->Body = "
+    <b>Филм:</b> $movieTitle <br>
+    <b>Час:</b> $time<br>
+    <b>Дата:</b> $date<br>
+    <b>Зала:</b> $hall<br>
+    <b>Място:</b> " . implode(', ', explode(',', $seatNumbers)) . "<br>
+    <hr>
+    <b>Платено:</b> $price лв
+    <p><img src='https://files.catbox.moe/y2sr5h.jpg'></p>
+";
+
+        $mail->AltBody = 'Билет';
         $mail->SMTPOptions = array(
             'ssl' => array(
                 'verify_peer' => false,
@@ -71,7 +81,7 @@ function sendEmail($movieId, $time, $date, $hall, $seatNumbers, $price) {
         );
 
         // Send the email
-        // $mail->send();
+        $mail->send();
         echo 'Message has been sent';
     } catch (Exception $e) {
         echo 'Email could not be sent. Mailer Error: ' . $mail->ErrorInfo;

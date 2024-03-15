@@ -77,17 +77,18 @@ if ( isset($_COOKIE['user_name'])) {
 
 
 
-<section class="h-100 gradient-form" style="background-color: transparent; margin-top:8rem;" >
+<section class="h-100 gradient-form" style="background-color: transparent; margin-top:6rem;" >
   <div class="container py-5 h-100">
     <div class="row d-flex justify-content-center align-items-center h-100" >
       <div class="col-xl-10" >
         <div class="card rounded-3 text-black" style="border: 5px solid grey; border-radius: 10px" >
           <div class="row g-0"  >
-            <div class="col-lg-12" style="background-color: rgb(10, 10, 10);">
+            <div class="col-lg-12" style="background-color: rgb(10, 10, 10); background-image: url('https://i0.wp.com/www.suretiimf.com/wp-content/uploads/2020/06/pattern-background-png-4.png?fit=300%2C300&ssl=1');">
               <div class="card-body p-md-5 mx-md-4">
 
                 <div class="text-center">
-                  <img src="logo.png" style="width: 185px;" alt="logo">
+                  <h1 style="color:whitesmoke"><b>Вход</b></h1>
+                  <img src="logo.png" style="width: 50px;" alt="logo">
                 </div>
 
                 <form class="form" action="login.php" method="post">

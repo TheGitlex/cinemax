@@ -234,13 +234,14 @@ br,
   background-color: rgb(56, 56, 56);
   color: rgb(231, 231, 231);
   border: 1px solid #000000;
-  max-height: 300px;
+  max-height: 400px;
   overflow-y: auto;
   margin-left: 14rem;
   margin-top: 3rem;
   z-index: 1;
   border-radius: 10px;
-  width: 200px;
+  max-width: 300px;
+
 }
 
 #searchResults a {
@@ -249,9 +250,22 @@ br,
   padding: 10px;
   text-decoration: none;
   color: rgb(213, 213, 213);
+  border-radius: 5px;
 }
 #searchResults a:hover {
   background-color: #158399;
+}
+#searchResults::-webkit-scrollbar {
+  width: 12px !important; 
+}
+
+#searchResults::-webkit-scrollbar-thumb {
+  background-color: #131313 !important;
+  border-radius: 6px !important; 
+}
+
+#searchResults::-webkit-scrollbar-track {
+  background-color: #7b7b7b !important; 
 }
 
 input,

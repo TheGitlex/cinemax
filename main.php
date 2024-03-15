@@ -68,7 +68,7 @@ if ($result->num_rows > 0) {
 				</select>
 				<label id="ili" > <i> или </i> </label>
 				<input placeholder="Търсене на филм" id="searchInput"
-					onkeydown="if (event.keyCode === 13) performSearch()">
+					onkeydown="if (event.keyCode === 13) performSearch()" autocomplete="off">
 				<!-- <button id="searchbutton" onclick="performSearch()"></button> -->
 				 <i class="fa fa-search" style="color:white" onclick="performSearch()" id="searchbutton"></i> 
 				<div id="searchResults"></div>

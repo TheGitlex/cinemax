@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 11, 2024 at 01:05 PM
+-- Generation Time: Mar 13, 2024 at 10:11 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -32,7 +32,6 @@ CREATE TABLE `discounts` (
   `code` varchar(10) NOT NULL,
   `amount` int(3) NOT NULL,
   `active` tinyint(1) NOT NULL,
-  `is_used` tinyint(1) NOT NULL,
   `uses` int(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -40,21 +39,26 @@ CREATE TABLE `discounts` (
 -- Dumping data for table `discounts`
 --
 
-INSERT INTO `discounts` (`id_discount`, `code`, `amount`, `active`, `is_used`, `uses`) VALUES
-(1, 'ABVC', 20, 0, 0, 0),
-(2, 'AAAA', 50, 1, 0, 0),
-(3, 'GVDS', 10, 1, 0, 0),
-(4, 'ABCD', 5, 1, 0, 0),
-(5, 'EFGH', 10, 0, 0, 0),
-(6, 'IJKL', 20, 1, 0, 0),
-(7, 'MNOP', 25, 1, 0, 0),
-(8, 'QRST', 35, 0, 0, 0),
-(9, 'UVWX', 40, 1, 0, 0),
-(10, 'YZAB', 50, 1, 0, 0),
-(11, 'ALEX', 100, 0, 0, 0),
-(12, 'SECRET', 99, 0, 0, 1),
-(15, 'FDSG', 30, 1, 0, 0),
-(16, 'SUMMER', 5, 1, 0, 0);
+INSERT INTO `discounts` (`id_discount`, `code`, `amount`, `active`, `uses`) VALUES
+(1, 'ABVC', 20, 0, 0),
+(2, 'AAAA', 76, 1, 2),
+(3, 'GVDS', 10, 1, 0),
+(4, 'ABCD', 5, 0, 0),
+(5, 'EFGH', 10, 0, 0),
+(6, 'IJKL', 20, 1, 0),
+(7, 'MNOP', 25, 1, 0),
+(8, 'QRST', 35, 0, 0),
+(9, 'UVWX', 40, 1, 0),
+(10, 'YZAB', 50, 1, 0),
+(11, 'ALEX', 100, 0, 0),
+(12, 'SECRET', 99, 0, 1),
+(15, 'FDSG', 30, 1, 0),
+(16, 'SUMMER', 5, 1, 0),
+(18, 'XHGA', 5, 1, 0),
+(19, 'BGER', 5, 1, 0),
+(20, 'HGFJ', 5, 1, 0),
+(21, 'LRCF', 5, 1, 0),
+(22, 'MWTG', 5, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -95,12 +99,12 @@ CREATE TABLE `movies` (
   `id_movie` int(5) NOT NULL,
   `title` varchar(50) NOT NULL,
   `release_date` timestamp NOT NULL DEFAULT current_timestamp(),
-  `genre` varchar(245) NOT NULL,
+  `genre` varchar(100) NOT NULL,
   `duration` int(3) DEFAULT NULL,
   `description` text NOT NULL,
   `director` varchar(40) NOT NULL,
-  `trailer` varchar(255) NOT NULL,
-  `icon` varchar(255) NOT NULL,
+  `trailer` varchar(30) NOT NULL,
+  `icon` varchar(30) NOT NULL,
   `age_rating` int(2) NOT NULL,
   `active` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -169,7 +173,8 @@ INSERT INTO `notifications` (`id_notif`, `id_user`, `id_movie`, `notif_date`) VA
 (43, 29, 12, '2024-03-08'),
 (50, 2, 29, '2024-07-03'),
 (51, 8, 29, '2024-07-03'),
-(52, 2, 30, '2024-05-24');
+(52, 2, 30, '2024-05-24'),
+(53, 8, 30, '2024-05-24');
 
 -- --------------------------------------------------------
 
@@ -218,7 +223,8 @@ INSERT INTO `projections` (`id_projection`, `id_movie`, `id_hall`, `time`, `date
 (26, 22, 5, '13:40:00', '2024-03-08'),
 (27, 26, 10, '13:40:00', '2024-03-07'),
 (28, 3, 5, '14:42:00', '2024-03-07'),
-(29, 12, 8, '18:48:00', '2024-03-09');
+(29, 12, 8, '18:48:00', '2024-03-09'),
+(30, 3, 5, '18:40:00', '2024-03-15');
 
 -- --------------------------------------------------------
 
@@ -270,7 +276,9 @@ INSERT INTO `ratings` (`id_rating`, `id_user`, `id_movie`, `rating_value`) VALUE
 (224, 2, 12, 5.0),
 (225, 8, 12, 4.0),
 (226, 29, 3, 5.0),
-(227, 29, 15, 5.0);
+(227, 29, 15, 5.0),
+(228, 8, 3, 5.0),
+(234, 8, 4, 5.0);
 
 -- --------------------------------------------------------
 
@@ -314,7 +322,28 @@ INSERT INTO `tickets` (`id_ticket`, `id_user`, `id_movie`, `id_projection`, `pri
 (291, 2, 3, 28, 25.00, '2024-03-06 11:52:54', '34,35,36,40'),
 (292, 8, 3, 28, 12.50, '2024-03-06 13:40:20', '77'),
 (295, 2, 22, 26, 12.50, '2024-03-08 09:28:16', '60'),
-(296, 8, 12, 29, 59.38, '2024-03-08 16:53:03', '45,46,59,78,92');
+(296, 8, 12, 29, 59.38, '2024-03-08 16:53:03', '45,46,59,78,92'),
+(297, 2, 3, 30, 6.25, '2024-03-13 17:28:25', '93'),
+(298, 8, 3, 30, 6.25, '2024-03-13 17:33:27', '60'),
+(299, 8, 3, 30, 6.25, '2024-03-13 17:37:32', '62'),
+(300, 8, 3, 30, 6.25, '2024-03-13 17:38:51', '95'),
+(301, 8, 3, 30, 6.25, '2024-03-13 17:42:00', '79'),
+(302, 8, 3, 30, 6.25, '2024-03-13 17:42:42', '75'),
+(303, 8, 3, 30, 6.25, '2024-03-13 17:44:36', '45'),
+(304, 8, 3, 30, 6.25, '2024-03-13 17:45:20', '44'),
+(305, 8, 3, 30, 6.25, '2024-03-13 17:46:11', '43'),
+(306, 8, 3, 30, 6.25, '2024-03-13 17:47:40', '42'),
+(307, 8, 3, 30, 11.88, '2024-03-13 17:47:58', '58'),
+(308, 8, 3, 30, 25.00, '2024-03-13 17:48:29', '47,110'),
+(309, 8, 3, 30, 12.50, '2024-03-13 17:48:42', '90'),
+(310, 8, 3, 30, 12.50, '2024-03-13 17:50:54', '107'),
+(311, 8, 3, 30, 12.50, '2024-03-13 17:51:01', '125'),
+(312, 8, 3, 30, 5.00, '2024-03-13 17:51:11', '11'),
+(313, 8, 3, 30, 3.00, '2024-03-13 18:08:30', '52'),
+(314, 8, 3, 30, 112.50, '2024-03-13 18:43:46', '20,38,50,82,84,97,104,118,91'),
+(315, 8, 3, 30, 3.00, '2024-03-13 19:20:15', '54'),
+(316, 8, 3, 30, 6.75, '2024-03-13 19:20:34', '72'),
+(317, 8, 3, 30, 12.50, '2024-03-13 19:29:48', '69');
 
 -- --------------------------------------------------------
 
@@ -341,13 +370,13 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id_user`, `f_name`, `l_name`, `email`, `password`, `birth`, `admin`, `joined`, `pfp`) VALUES
 (1, 'admin', 'tf', 'admin@gmail.com', '$2y$10$YmC12eMwt8oAnmPhqb8g2umSodHkw2oJ5FJmC8G/aJxFETWOUGE..', '2023-12-01', 1, '2023-10-10', 'https://preview.redd.it/bcyq3rjk2w071.png?auto=webp&s=97c9b873f1b41a7b9ff31331fd92f2e3fafed92f'),
 (2, 'Alex', 'alex', 'alexiliev111@gmail.com', '$2y$10$YmC12eMwt8oAnmPhqb8g2umSodHkw2oJ5FJmC8G/aJxFETWOUGE..', '2000-07-05', 1, '2024-01-16', 'https://pbs.twimg.com/media/E9sN5jzVUAUgYHn.png'),
-(8, 'test', 'test', 'test@gmail.com', '$2y$10$QiaBlBnByqHWJZEpRVgQGOiHC58ygl.W71QYeVgWjpgRjyN4XzbKa', '2024-01-04', 0, '2024-01-16', 'https://i.imgur.com/iDv7xPz_d.png?maxwidth=520&shape=thumb&fidelity=high'),
+(8, 'test', 'test', 'test@gmail.com', '$2y$10$QiaBlBnByqHWJZEpRVgQGOiHC58ygl.W71QYeVgWjpgRjyN4XzbKa', '2024-01-04', 1, '2024-01-16', 'https://i.imgur.com/iDv7xPz_d.png?maxwidth=520&shape=thumb&fidelity=high'),
 (21, 'test', 'test', 'test2@gmail.com', '$2y$10$9oXYZZNwS8IRIjDj/UZHPe3p7IaO.Wggy3PUHMUJnntiX.FCK5uva', '2024-01-11', 0, '2024-01-15', 'https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg'),
 (25, 'stamat', 'stamat2', 'stamat@gmail.com', '$2y$10$qAybKPWzZvwSgoKIefZikOHTTqAdv9gq6j6lzJI2MdgCOjyE2/U8G', '2024-01-04', 0, '2024-01-17', 'https://i.etsystatic.com/34732889/r/il/b08942/3768265623/il_570xN.3768265623_sji1.jpg'),
-(26, 'Milo', 'milo', 'milowuwu@gmail.com', '$2y$10$f/qyyti5sPD9IcVKYlDNpuz/eMf6L6tS3WAgMG41wj0OcBFtNiP8G', '2024-01-03', 0, '2024-01-27', 'https://cdn.discordapp.com/attachments/911570909314310195/1200563222537838672/alexisevenmoregaythanbefore.gif?ex=65c6a2a1&is=65b42da1&hm=3b796f5d6271760c1f8445c093b2de17c0db5df64ad51f519fa109e638ac61a9&'),
+(26, 'Milo', 'milo', 'milo@gmail.com', '$2y$10$f/qyyti5sPD9IcVKYlDNpuz/eMf6L6tS3WAgMG41wj0OcBFtNiP8G', '2024-01-03', 0, '2024-01-27', 'https://cdn.discordapp.com/attachments/911570909314310195/1200563222537838672/alexisevenmoregaythanbefore.gif?ex=65c6a2a1&is=65b42da1&hm=3b796f5d6271760c1f8445c093b2de17c0db5df64ad51f519fa109e638ac61a9&'),
 (28, 'emailme', 'e', 'mrlogtod@gmail.com', '$2y$10$hBUzLvrlntfYout9ykNa7.bBVTdtcha/EwtV0YJTRZGXrZsTfCNCS', '2024-01-31', 1, '2024-02-22', 'https://bootdey.com/img/Content/avatar/avatar7.png'),
-(29, 'tommy', 'shimony', 'tomshimoni14@gmail.com', '$2y$10$toY7yDN9HRO7zlawiisOVumYdfruY53GRwH6WvGUKHxTk6PJYjpWC', '2024-02-08', 0, '2024-02-22', 'https://i.pinimg.com/736x/9c/3a/0e/9c3a0e399b447ee46f61a9a5f11d099d.jpg'),
-(30, 'Zazamoka', 'zaza', 'zazamoka@gmail.com', '$2y$10$Lj1OrT//3ZgiueLDDwZSs.Qb26MKdHlYt7.jT5YHR3ZdedKCB3a9e', '2024-02-02', 0, '2024-02-26', 'https://bootdey.com/img/Content/avatar/avatar7.png');
+(29, 'tom', 'shimon', 'tomshimoni14@gmail.com', '$2y$10$toY7yDN9HRO7zlawiisOVumYdfruY53GRwH6WvGUKHxTk6PJYjpWC', '2024-02-08', 0, '2024-02-22', 'https://i.pinimg.com/736x/9c/3a/0e/9c3a0e399b447ee46f61a9a5f11d099d.jpg'),
+(30, 'Fanner', 'agha', 'fanfan@gmail.com', '$2y$10$Lj1OrT//3ZgiueLDDwZSs.Qb26MKdHlYt7.jT5YHR3ZdedKCB3a9e', '2024-02-02', 0, '2024-02-26', 'https://bootdey.com/img/Content/avatar/avatar7.png');
 
 --
 -- Indexes for dumped tables
@@ -418,7 +447,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `discounts`
 --
 ALTER TABLE `discounts`
-  MODIFY `id_discount` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id_discount` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `halls`
@@ -436,25 +465,25 @@ ALTER TABLE `movies`
 -- AUTO_INCREMENT for table `notifications`
 --
 ALTER TABLE `notifications`
-  MODIFY `id_notif` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+  MODIFY `id_notif` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 
 --
 -- AUTO_INCREMENT for table `projections`
 --
 ALTER TABLE `projections`
-  MODIFY `id_projection` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id_projection` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `ratings`
 --
 ALTER TABLE `ratings`
-  MODIFY `id_rating` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=228;
+  MODIFY `id_rating` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=235;
 
 --
 -- AUTO_INCREMENT for table `tickets`
 --
 ALTER TABLE `tickets`
-  MODIFY `id_ticket` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=297;
+  MODIFY `id_ticket` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=318;
 
 --
 -- AUTO_INCREMENT for table `users`

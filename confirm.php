@@ -124,7 +124,7 @@ input:-webkit-autofill{
                         <div style="background:rgba(10, 10, 10, 0.577); padding: 10px; border: 5px solid black;border-radius:5px;">
                           <p>Играйте за промокод при следваща покупка и го използвайте преди друг!</p>
                           <div id="codegeneration">
-                              <input id="codeInput" placeholder="XXXX" style="text-align: center;">
+                              <input id="codeInput" placeholder="XXXX" style="text-align: center;" autocomplete="off">
                               <p id="discount_info" style="color: white; font-size: 20px; font-weight: 500; margin-top: 10px;"></p>
                               <button id="generateButton" onclick="generateCode(), startTimer()"><i class="fa fa-rotate-left" style="color: white; font-size: 2rem; "></i></button>
                               <button id="testCodeButton" disabled onclick="testCode()" style="display: none;"><i class="fa fa-check" style="color: white; font-size: 2rem; "></i></button>

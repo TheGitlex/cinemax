@@ -57,11 +57,17 @@ function redirectToMovie() {
   window.location.href = "movie.php?id=" + selectedMovieId;
 }
 
+// Trigger search on input change
+$("#searchInput").on("input", function () {
+  performSearch();
+});
+
 function performSearch() {
   var searchTerm = $("#searchInput").val();
 
   // Check if the search term is empty
   if (!searchTerm.trim()) {
+    $("#searchResults").hide(); // Hide results if search term is empty
     return;
   }
 
@@ -85,13 +91,18 @@ function displaySearchResults(results) {
   resultsContainer.empty();
 
   // Display each result
-  results.forEach(function (result) {
-    var resultHtml = "<div>";
-    resultHtml +=
-      '<a href="movie.php?id=' + result.id + '">' + result.title + "</a>";
-    resultHtml += "</div>";
+  results.forEach(function(result) {
+    var resultHtml = '<div style="display:flex; padding:5px; border-radius:5px">';
+    resultHtml += '<a href="movie.php?id=' + result.id + '" style="text-decoration: none; display: flex; align-items: center;width:100%">'; // Open anchor tag
+    resultHtml += '<img src="icons/' + result.icon + '" alt="" style="height:80px; margin-right: 10px;">'; // Concatenate result.icon within the src attribute
+    resultHtml += result.title; // Text content
+    resultHtml += '</a>'; // Close anchor tag
+    resultHtml += '</div>';
+    
     resultsContainer.append(resultHtml);
   });
+  
+  
 
   // Show the results container
   resultsContainer.show();
@@ -106,6 +117,7 @@ $(document).mouseup(function (e) {
     container.hide();
   }
 });
+
 
 function generateCode() {
   document.getElementById("testCodeButton").disabled = false;
