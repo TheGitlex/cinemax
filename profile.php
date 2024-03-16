@@ -198,7 +198,7 @@ $result = $conn->query($sql);
                 <div class="row">
                     <div class="col-sm-12">
                         <button type="button" id="editButton" class="btn btn-info"><i class="fa fa-pencil" style="color: white"></i></button>
-                        <button type="button" id="saveChangesButton" class="btn btn-success" style="display: none;">Запази Промени</button>
+                        <button type="button" id="saveChangesButton" class="btn btn-success" style="display: none;">Запази промените</button>
                           <button type="button" id="deleteAcc" class="btn btn-info" onclick="test()">Изтрий профил</button>
                     </div>
                 </div>
