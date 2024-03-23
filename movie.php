@@ -176,9 +176,9 @@ if ( $active==0 && $admin == 0) {
         }
 
         if ($isSubscribed) {
-            echo '<i id="notifbutton" title="Напомняне: Да" class="fa fa-bell-slash" style="color: cyan;"></i>';
+            echo '<i id="notifbutton" title="Напомняне: Включено" class="fa fa-bell-slash" style="color: cyan;"></i>';
         } else {
-            echo '<i id="notifbutton" title="Напомняне: Не" class="fa fa-bell" style="color: white;"></i>';
+            echo '<i id="notifbutton" title="Напомняне: Изключено" class="fa fa-bell" style="color: white;"></i>';
         }
     }  ?> </p>
                     <p> <b> Aудио: </b> <label>ENG</label> </p>
@@ -187,7 +187,8 @@ if ( $active==0 && $admin == 0) {
                     <p> <b> Години:</b> <label> <?php echo $age_rating; ?>+  </label> </p>
                     <p><b>Общ рейтинг:</b> <label><?php echo number_format($averageRating, 2); ?> <i class="fa fa-star"></i>  (<?php echo $numVotes ?>)</label></p>
                     <div id="ratingcombo" <?php if ((strtotime($release_date) > strtotime("now"))){echo "style='display:none'";} ?> >
-                    <p><b> Твой Рейтинг: </b><label><?php echo isset($user_rating) ? $user_rating : ''; ?></label><?php if (isset($user_rating)) : ?> <button id="deleteRatingBtn"> <i class="fa fa-trash"></i> </button> <?php endif; ?></p>
+                    <p><b> Твой рейтинг: </b><label class="<?php echo isset($user_rating) && $user_rating == '5.0' ? 'yellow' : ''; ?>"><?php echo isset($user_rating) ? $user_rating : ''; ?></label>
+<?php if (isset($user_rating)) : ?> <button id="deleteRatingBtn"> <i class="fa fa-trash"></i> </button> <?php endif; ?></p>
 
                     <div class="rating">
             <input value="5" name="rating" id="star5" type="radio">

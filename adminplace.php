@@ -181,29 +181,28 @@ if ( $user_result == 0) {
 
             <div style="margin-top: 5rem; background-color:rgba(132, 132, 132, 0.407); padding:10px; border-radius:5px; border: 5px solid black;">
     <?php
-    // Assuming you have established a database connection
-    
-    // Selecting user information from the database
-    $userssql = "SELECT * FROM users order by email ASC";
-    $result = mysqli_query($conn, $userssql);
-    
-    // Checking if there are any users
-    if (mysqli_num_rows($result) > 0) {
-        // Loop through each user
-        while ($row = mysqli_fetch_assoc($result)) {
-            // Displaying a link for each user's email
-            echo '<a class="usera" style=" color: white;" href="profileadmin.php?uid=' . $row['id_user'] . '">' . $row['email'] . '</a><br>';
-        }
-    } else {
-        echo "No users found.";
-    }
+   $userssql = "SELECT * FROM users ORDER BY access ASC, email ASC"; // Order by access and email
+   $result = mysqli_query($conn, $userssql);
+   
+   // Checking if there are any users
+   if (mysqli_num_rows($result) > 0) {
+       // Loop through each user
+       while ($row = mysqli_fetch_assoc($result)) {
+           // Set color based on access level
+           $color = ($row['access'] == 0) ? "yellow" : "white";
+           // Displaying a link for each user's email with appropriate color
+           echo '<a class="usera" style="color: ' . $color . ';" href="profileadmin.php?uid=' . $row['id_user'] . '">' . $row['email'] . '</a><br>';
+       }
+   } else {
+       echo "No users found.";
+   }
     ?>
 </div>
 		</div>
 
 		<div id="right_side">
 
-        <div style="position: fixed; margin-left:5rem; margin-top: 10rem; background-color:rgba(132, 132, 132, 0.407); padding:10px; border-radius:5px; border: 5px solid black;">
+        <div style="position: fixed; margin-left:3rem; margin-top: 10rem; background-color:rgba(132, 132, 132, 0.407); padding:10px; border-radius:5px; border: 5px solid black;">
     <div id="addremove">
         <input placeholder="email" id="addInput2" style="width: 200px;"> <br>
         <div style="display:flex">
@@ -228,18 +227,44 @@ echo '</div>';
 ?>
     </div>
 
-<div style="position: fixed; margin-left:5rem; margin-top: 30rem;background-color:rgba(132, 132, 132, 0.407); padding:10px; border-radius:5px; border: 5px solid black;"> 
+<div style="position: fixed; margin-left:3rem; margin-top: 30rem;background-color:rgba(132, 132, 132, 0.407); padding:10px; border-radius:5px; border: 5px solid black;"> 
 
 <div>
     <input id="codeInput" placeholder="CODE" style="width: 200px;">  
-    <input id="amountInput" placeholder="amount%" >  
+    <input id="amountInput" placeholder="amount%" autocomplete="none">  
     <br>
     <div style="display:flex">
-        <button id="addCodeButton" style="width: 100px;height:50px; background-color:antiquewhite"> + </button> 
-        <button id="removeCodeButton" style="width:100px; background-color:antiquewhite"> - </button>
+        <button id="addCodeButton" style="width: 80px;height:50px; background-color:antiquewhite"> + </button> 
+        <button id="removeCodeButton" style="width:80px; background-color:antiquewhite"> - </button>
+        <button id="generateCodeButton" style="width:40px; background-color:antiquewhite" onclick="generateCode()"> <i class="fa fa-rotate-left"></i> </button>
     </div>
 </div>
 <br>
+<script>
+function generateCode() {
+ 
+  // Generate a random 4-letter code
+  const generatedCode = generateRandomCode(4);
+
+  // Insert the code into the input field
+  $("#codeInput").val(generatedCode);
+  $("#amountInput").val(5);
+
+}
+
+function generateRandomCode(length) {
+  const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  let randomCode = "";
+
+  for (let i = 0; i < length; i++) {
+    const randomIndex = Math.floor(Math.random() * characters.length);
+    randomCode += characters.charAt(randomIndex);
+  }
+
+  return randomCode;
+}
+
+</script>
 <?php
 $codesql = "SELECT * FROM discounts WHERE active=1 ORDER BY amount DESC";
 $coderesult = $conn->query($codesql);
@@ -263,7 +288,7 @@ document.getElementById('addCodeButton').addEventListener('click', function() {
     let code = document.getElementById('codeInput').value.trim();
     let amount = document.getElementById('amountInput').value.trim();
 
-    if (code !== '' && amount !== '') {
+    if (code !== '' && amount !== '' && amount>=0) {
         // AJAX call to add the discount
         let xhr = new XMLHttpRequest();
         xhr.open('POST', 'add_discount.php');
@@ -327,70 +352,7 @@ document.getElementById('removeCodeButton').addEventListener('click', function()
 
 
 </script>
-
-        <!-- <div id="edit">
-    <input placeholder="id" id="idInput">
-    <input placeholder="title" id="titleInput">
-    <input placeholder="yyyy-mm-dd" id="dateInput">
-    <input placeholder="genre" id="genreInput">
-    <input placeholder="duration" id="durationInput">
-    <textarea rows="4" cols="23" placeholder="description" id="descriptionInput"></textarea>
-    <input placeholder="director" id="directorInput">
-    <input placeholder="trailer" id="trailerInput">
-    <input placeholder="icon" id="iconInput">
-    <input placeholder="age_rating" id="ageRatingInput">
-    <button style="width: 100px; height: 50px" onclick="editMovie()">Edit</button>
-        </div> -->
-        <script> 
-    function editMovie() {
-    // Retrieve input values
-    const id_movie = document.getElementById('idInput').value;
-    const title = document.getElementById('titleInput').value;
-    const release_date = document.getElementById('dateInput').value;
-    const genre = document.getElementById('genreInput').value;
-    const duration = document.getElementById('durationInput').value;
-    const description = document.getElementById('descriptionInput').value;
-    const director = document.getElementById('directorInput').value;
-    const trailer = document.getElementById('trailerInput').value;
-    const icon = document.getElementById('iconInput').value;
-    const ageRating = document.getElementById('ageRatingInput').value;
-
-    // Check if required fields are not empty
-    if (!id_movie) {
-        alert('ID is a required field');
-        return;
-    }
-
-    // Create a FormData object and append the values
-    const formData = new FormData();
-    formData.append('id_movie', id_movie);
-    formData.append('title', title);
-    formData.append('release_date', release_date);
-    formData.append('genre', genre);
-    formData.append('duration', duration);
-    formData.append('description', description);
-    formData.append('director', director);
-    formData.append('trailer', trailer);
-    formData.append('icon', icon);
-    formData.append('age_rating', ageRating);
-
-    // Make an AJAX request to the server
-    fetch('editmovie.php', {
-        method: 'POST',
-        body: formData
-    })
-    .then(response => response.text())
-    .then(data => {
-        location.reload(); // Reload the page
-    })
-    .catch(error => console.error('Error:', error));
-}
-
-</script>
-
-
-	
-
+    
 	</div>
     </div>
 

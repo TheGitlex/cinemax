@@ -336,7 +336,7 @@ transition: 0.3s;
 }
 #notifbutton:hover{
   color: #00d5ff;
-  scale: 1.1;
+  scale: 1.2;
   transition: 0.5s;
 }
 #deleteRatingBtn{
@@ -351,7 +351,7 @@ transition: 0.3s;
 #deleteRatingBtn:hover{
   color: cyan;
   transition: 0.2s;
-  scale: 1.1;
+  scale: 1.2;
 }
 
 
@@ -433,4 +433,36 @@ transition: 0.3s;
   background-color: #00d5ff;
   color:white;
   transition: 0.3s;
+}
+.rating label:hover{
+  scale: 1.2;
+}
+
+.yellow {
+  color: #ffffff;
+  font-weight: 600;
+  font-size: larger;
+  background: linear-gradient(to top, #88fafa 0%, #ffffff 25%, #ffffff 50%, #aaffff 100%);
+  -webkit-background-clip: text;
+  -ms-background-clip: text;
+  -moz-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -ms-text-fill-color: transparent;
+  -moz-text-fill-color: transparent;
+  -webkit-text-fill-color: transparent;
+  animation-name: masked-animation;
+  animation-duration: 400s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  
+}
+
+@keyframes masked-animation {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: -8000px -3000px;
+  }
 }

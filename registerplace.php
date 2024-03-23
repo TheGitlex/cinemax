@@ -86,7 +86,7 @@ if ( isset($_COOKIE['user_name'])) {
         <span>Потвърди парола</span>
     </label>
 
-    <input placeholder="Дата на раждане" required="" class="input" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" name="birth_date">
+    <input placeholder="Дата на раждане" required="" class="input" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" name="birth_date" style="border-radius:10px; padding:10px;">
 
     <div style="display: flex; color: white; gap: 5px;">
         <input type="checkbox" name="approve" id="approve" value="approved" onchange="enableButton()">

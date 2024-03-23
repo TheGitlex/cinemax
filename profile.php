@@ -525,11 +525,11 @@ function scrollToBottom() {
     //donothing
   } else if (result.isDenied) {
     Swal.fire({
-                title: "Акаунтът е изтрит.",
+                title: "Акаунтът ще бъде изтрит.",
                 icon: 'info'
             }).then(() => {
                 $.ajax({
-                url: 'delete_user.php',
+                url: 'change_access.php',
                 type: 'POST',
                 success: function(response) {
                     // Handle success response

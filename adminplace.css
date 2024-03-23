@@ -256,12 +256,7 @@ footer p {
  justify-content: center;
  gap: 1rem;
 }
-#addremove{
-  text-align: center;
-  background-color: rgba(82, 82, 82, 0.682);
- 
-  
-}
+
 
 #edit{
   display: flex;

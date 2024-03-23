@@ -20,6 +20,7 @@
             $joined = $row['joined'];
             $password=$row['password'];
             $pfp2 = $row['pfp'];
+            $access = $row['access'];
             $formattedDate = date('d/m/Y', strtotime($joined));
             $birth = date('d/m/Y', strtotime($birth)); // Assuming the role is stored in the 'f_name' column
             
@@ -105,7 +106,8 @@ $result = $conn->query($sql);
 
   </head>
 
-<body style="background: radial-gradient(circle, rgb(10, 90, 46), rgb(0, 0, 0));">
+  <body style="background: radial-gradient(circle, <?php echo ($access == 1) ? 'rgb(10, 90, 46)' : 'rgb(90, 10, 10)'; ?>, rgb(0, 0, 0));">
+
 
 
 <?php include("header.php") ?>
@@ -155,6 +157,7 @@ $result = $conn->query($sql);
                       <!-- <p class="text-muted font-size-sm">Bay Area, San Francisco, CA</p> -->
                       <!-- <button class="btn btn-primary">Edit</button>
                       <button class="btn btn-outline-primary">Message</button> -->
+                      
                     </div>
                   </div>
                 </div>
@@ -216,8 +219,8 @@ $result = $conn->query($sql);
                 <div class="row">
                     <div class="col-sm-12">
                         <!-- <button type="button" id="editButton" class="btn btn-info"><i class="fa fa-pencil" style="color: white"></i></button> -->
-                        <!-- <button type="button" id="saveChangesButton" class="btn btn-success" style="display: none;">Запази Промени</button>
-                          <button type="button" id="deleteAcc" class="btn btn-info" onclick="test()">Изтрий профил</button> -->
+                        <!-- <button type="button" id="saveChangesButton" class="btn btn-success" style="display: none;">Запази Промени</button> -->
+                           <button type="button" id="deleteAcc" class="btn btn-info" onclick="test()">ИЗТРИЙ</button>
                     </div>
                 </div>
             </form>
@@ -527,42 +530,61 @@ function scrollToBottom() {
 
 
 <script>
-  function test() {
+function test() {
     Swal.fire({
-  title: "Сигурни ли сте?",
-  showDenyButton: true,
-  showConfirmButton: false,
-  showCancelButton: true,
-  cancelButtonText: 'Отказ',
-  html: '<p> Това ще изтрие всичко за Вас </p>',
-  denyButtonText: `Изтрий`
-}).then((result) => {
-  /* Read more about isConfirmed, isDenied below */
-  if (result.isConfirmed) {
-    //donothing
-  } else if (result.isDenied) {
-    Swal.fire({
-                title: "Акаунтът е изтрит.",
-                icon: 'info'
-            }).then(() => {
+        title: "Сигурни ли сте?",
+        showDenyButton: true,
+        showConfirmButton: false,
+        showCancelButton: true,
+        cancelButtonText: 'Отказ',
+        html: '<p> Това ще изтрие всичко за Вас </p>',
+        denyButtonText: `Изтрий`
+    }).then((result) => {
+        if (result.isDenied) {
+            var user_id = <?php echo isset($_GET['uid']) ? json_encode($_GET['uid']) : 'null'; ?>;
+            if (user_id !== null && user_id !== '') {
                 $.ajax({
-                url: 'delete_user.php',
-                type: 'POST',
-                success: function(response) {
-                    // Handle success response
-                   
-                        // Redirect to main.php
-                        window.location.href = "main.php";
-                location.reload();
-                   
-                },});
-                // Redirect to main.php
-              
-            });
-    
-  }
-});
-  }
+                    url: 'delete_user.php',
+                    type: 'POST',
+                    data: { uid: user_id },
+                    success: function(response) {
+                        if (response.trim() === 'success') {
+                            Swal.fire({
+                                title: "Акаунтът е изтрит.",
+                                icon: 'info'
+                            }).then(() => {
+                                window.location.href = "adminplace.php";
+                                
+                            });
+                        } else {
+                            Swal.fire({
+                                title: "Грешка при изтриване на акаунта.",
+                                text: response,
+                                icon: 'error'
+                            });
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(xhr.responseText);
+                        Swal.fire({
+                            title: "Грешка при изтриване на акаунта.",
+                            icon: 'error'
+                        });
+                    }
+                });
+            } else {
+                console.error("User ID is missing or invalid.");
+                Swal.fire({
+                    title: "Грешка при изтриване на акаунта.",
+                    icon: 'error'
+                });
+            }
+        }
+    });
+}
 </script>
+
+
+
 </body>
 </html>

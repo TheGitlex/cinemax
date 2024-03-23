@@ -322,6 +322,19 @@ body::-webkit-scrollbar {
         color: rgb(0, 130, 252) !important;
         background: transparent !important;
     }
+    
+    #ratingcombo p .yellow{
+        background: none;
+    -webkit-background-clip: initial;
+    -ms-background-clip: initial;
+    -moz-background-clip: initial;
+    background-clip: initial;
+    -webkit-text-fill-color: #ffffff; /* Set text color to white */
+    -ms-text-fill-color: #ffffff;
+    -moz-text-fill-color: #ffffff;
+    -webkit-text-fill-color: #ffffff;
+        
+    }
     .popup-content{
         width: 100vw !important;
         margin-top: 15rem !important;

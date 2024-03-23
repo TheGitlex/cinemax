@@ -13,21 +13,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Perform password matching validation
     if ($password !== $confirm_password) {
-        $error = "Passwords do not match.";
+        $error = "Паролите не съвпадат.";
     } else {
         // Check if the email already exists
         $check_query = "SELECT * FROM users WHERE email = '$email'";
         $check_result = mysqli_query($conn, $check_query);
 
         if ($check_result && mysqli_num_rows($check_result) > 0) {
-            $error = "Email already exists. Choose a different email.";
+            $error = "Изберете друг email.";
         } else {
             // Hash the password before storing in the database
             $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
             // Insert user data into the database
             $insert_query = "INSERT INTO users (f_name, l_name, email, password, birth, joined) VALUES ('$first_name', '$last_name', '$email', '$hashed_password', '$birth_date', NOW())";
-
 
             if (mysqli_query($conn, $insert_query)) {
                 // Set cookies upon successful registration
@@ -48,7 +47,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 // Redirect to the registration page with an error message if applicable
 $referrer = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : 'registerplace.php';
-$errorString = !empty($error) ? '?error=' . urlencode($error) : '';
-header("Location: $referrer$errorString");
+$errorString = !empty($error) ? 'error=' . urlencode($error) : '';
+$url = $referrer . (strpos($referrer, '?') !== false ? '&' : '?') . $errorString;
+header("Location: $url");
 exit();
 ?>

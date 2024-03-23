@@ -87,8 +87,8 @@ body {
   }
   
   .message, .signin {
-    color: rgba(88, 87, 87, 0.822);
-    font-size: 14px;
+    color: rgba(192, 192, 192, 0.822);
+    font-size: 1rem;
   }
   
   .signin {
