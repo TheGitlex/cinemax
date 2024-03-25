@@ -74,51 +74,77 @@ if ($movieId && $projectionId && $time && $date) {
      
         
           <div class="screen"><img src="screen.webp"> </div>
-          
-          <div id="halldiv" style="display: flex; justify-content: center; gap: 6rem;">
-          
-          
-          
-         
-          <!-- Left section -->
-          <div class="section" style="float: left;">
-          <?php
-          $seatNumber = 1;
-          
-          for ($i = 0; $i < 8; $i++) { // Repeat the rows 7 times
-              echo '<div class="row">';
-              $startSeat = $seatNumber + ($i * 16); // Calculate the starting seat number for the current row
-              for ($j = 0; $j < 8; $j++) { // Repeat the seats 8 times in each row
-          $currentSeat = $startSeat + $j;
-          $seatClass = in_array($currentSeat, $takenSeats) ? 'taken' : 'available';
-          echo '<div class="seat ' . $seatClass . '" onclick="toggleSeat(' . $currentSeat . ')">' . $currentSeat . '</div>';
-              }
-              echo '</div>';
-          }
-          ?>
-          
-          </div>
-          
-          <!-- Right section -->
-          <div class="section" style="float: right;">
-          <?php
-          $startRightSection = 9;
-          
-          for ($i = 0; $i < 8; $i++) { // Repeat the rows 7 times
-              echo '<div class="row">';
-              $startSeat = $startRightSection + ($i * 16); // Calculate the starting seat number for the current row
-              for ($j = 0; $j < 8; $j++) { // Repeat the seats 8 times in each row
-          $currentSeat = $startSeat + $j;
-          $seatClass = in_array($currentSeat, $takenSeats) ? 'taken' : 'available';
-          echo '<div class="seat ' . $seatClass . '">' . $currentSeat . '</div>';
-              }
-              echo '</div>';
-          }
-          ?>
-          
-          </div>
-          
-          </div>
+          <?php  
+if ($hall) {
+    // Query to get the hall details including the number of seats
+    $query = "SELECT seats FROM halls WHERE id_hall = ?";
+    
+    // Prepare the statement
+    $stmt = $conn->prepare($query);
+    
+    // Bind parameters
+    $stmt->bind_param("i", $hall);
+    
+    // Execute the statement
+    $stmt->execute();
+    
+    // Bind result variables
+    $stmt->bind_result($totalSeats);
+    
+    // Fetch the result
+    $stmt->fetch();
+    
+    // Close the statement
+    $stmt->close();
+    
+    // Calculate the number of rows and seats per row
+    $rows = ceil($totalSeats / 16); // Assuming 16 seats per row
+    $seatsPerRow = ceil($totalSeats / $rows);
+}
+?>
+
+<div id="halldiv" style="display: flex; justify-content: center; gap: 6rem;">
+    <!-- Left section -->
+    <div class="section" style="float: left;">
+        <?php
+        $seatNumber = 1;
+        
+        for ($i = 0; $i < $rows; $i++) { // Repeat the rows
+            echo '<div class="row">';
+            $startSeat = $seatNumber + ($i * 16); // Calculate the starting seat number for the current row
+            for ($j = 0; $j < 8; $j++) { // Repeat the seats 8 times in each row
+                $currentSeat = $startSeat + $j;
+                if ($currentSeat <= $totalSeats) { // Check if the seat number exceeds the total seats
+                    $seatClass = in_array($currentSeat, $takenSeats) ? 'taken' : 'available';
+                    echo '<div class="seat ' . $seatClass . '" onclick="toggleSeat(' . $currentSeat . ')">' . $currentSeat . '</div>';
+                }
+            }
+            echo '</div>';
+        }
+        ?>
+    </div>
+    
+    <!-- Right section -->
+    <div class="section" style="float: right;">
+        <?php
+        $startRightSection = $seatNumber + 8; // Start from seat 9
+        
+        for ($i = 0; $i < $rows; $i++) { // Repeat the rows
+            echo '<div class="row">';
+            $startSeat = $startRightSection + ($i * 16); // Calculate the starting seat number for the current row
+            for ($j = 0; $j < 8; $j++) { // Repeat the seats 8 times in each row
+                $currentSeat = $startSeat + $j;
+                if ($currentSeat <= $totalSeats) { // Check if the seat number exceeds the total seats
+                    $seatClass = in_array($currentSeat, $takenSeats) ? 'taken' : 'available';
+                    echo '<div class="seat ' . $seatClass . '">' . $currentSeat . '</div>';
+                }
+            }
+            echo '</div>';
+        }
+        ?>
+    </div>
+</div>
+
           <div style="clear: both;"></div>
       
       </div>

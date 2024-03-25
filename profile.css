@@ -177,3 +177,6 @@ input:focus{
   background-color: rgb(122, 0, 0);
   
  }
+ .mt-3 .movie-icon:hover{
+  transform: rotate(3deg);
+ }

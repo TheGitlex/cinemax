@@ -77,8 +77,8 @@ if ( isset($_COOKIE['user_name'])) {
     </label>
 
     <label>
-        <input required="" placeholder="" type="password" class="input" name="password">
-        <span>Парола</span>
+        <input required="" placeholder="" type="password" class="input" name="password" minlength="6">
+        <span>Парола (6+)</span>
     </label>
 
     <label>

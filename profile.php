@@ -188,7 +188,7 @@ $result = $conn->query($sql);
         <h6 class="mb-0">Парола</h6>
     </div>
     <div class="col-sm-9 text-secondary">
-    <input type="password" class="form-control" id="inputPassword" value="********" placeholder="Нова Парола" disabled>
+    <input type="password" class="form-control" id="inputPassword" value="********" placeholder="Нова Парола" disabled minlength="5">
 </div>
 
 </div>

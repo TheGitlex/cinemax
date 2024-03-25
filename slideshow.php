@@ -138,9 +138,6 @@
 				<div class="item">
 					<img src="bigposters/batman.jpg" alt="" />
 				</div>
-				<div class="item">
-					<img src="bigposters/menu.jpg" alt="" />
-				</div>
 			</div>
 			<div class="buttons" style="pointer-events: none;">
 				<button id="prev" style="pointer-events: auto;">

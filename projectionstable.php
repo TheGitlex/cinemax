@@ -91,7 +91,7 @@ if (isset($_COOKIE['user_name']) && $user_result == 1) {
     echo '<div class="edit" style="margin-top:76rem; left:0">
     <input type="hidden" id="idmovie" value="' . $movieId . '">
     <input id="datetime" type="datetime-local" placeholder="Date and Time">
-    <input id="hall" placeholder="hall" >
+    <input id="hall" placeholder="hall 1-12" >
     <button style="width: 50px; height: 50px; font-size:2rem;" onclick="addProjection()">+</button>
 </div>';
 }

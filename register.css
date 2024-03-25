@@ -145,7 +145,12 @@ body {
   .form label .input:valid + span {
     color: green;
   }
-  
+  /* .form label .input:focus + span,.form label .input:invalid + span {
+    top: 30px;
+    font-size: 0.7em;
+    font-weight: 600;
+  }
+   */
   .submit {
     border: none;
     outline: none;
