@@ -348,7 +348,7 @@ body::-webkit-scrollbar {
     #categories{
     width: 80vw !important;
   }
-  #moviepage{
+  #aligner #moviepage{
     width: 100vw !important;
     text-align: center !important;
     zoom: 1 !important;
@@ -451,18 +451,10 @@ header{
    #moviepage{
             width: 80% !important;
         }
-        .popup{
-            margin: 10% auto !important;
-        }
         .col-md-4{
             margin-top:3rem !important;
         }
-        #left_side{
-            margin-top: -20rem !important;
-        }
-        #right_side{
-            margin-top: -5rem !important;
-        }
+       
     /* .slider, #slideshow{
             height: 400px !important;
         }  */

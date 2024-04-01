@@ -229,7 +229,7 @@ echo '</div>';
 
       
 
-<div style="position: fixed; margin-left:3rem; margin-top: 30rem;background-color:rgba(132, 132, 132, 0.407); padding:10px; border-radius:5px; border: 5px solid black;"> 
+<div style=" margin-left:3rem; margin-top: 30rem;background-color:rgba(132, 132, 132, 0.407); padding:10px; border-radius:5px; border: 5px solid black;"> 
 
 <div>
     <input id="codeInput" placeholder="CODE" style="width: 200px;">  
