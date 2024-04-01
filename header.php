@@ -448,6 +448,21 @@ header{
     #extract{
         zoom: 1.35 !important;
     }
+   #moviepage{
+            width: 80% !important;
+        }
+        .popup{
+            margin: 10% auto !important;
+        }
+        .col-md-4{
+            margin-top:3rem !important;
+        }
+        #left_side{
+            margin-top: -20rem !important;
+        }
+        #right_side{
+            margin-top: -5rem !important;
+        }
     /* .slider, #slideshow{
             height: 400px !important;
         }  */
@@ -458,21 +473,7 @@ header{
           
            transform: scale(1); 
         }
-        #moviepage{
-            width: 80% !important;
-        }
-        .popup{
-            margin: 10% auto !important;
-        }
-        .col-md-4{
-            margin-top:3rem !important;
-        }
-        #left_side div{
-            margin-top: -20rem !important;
-        }
-        #right_side{
-            margin-top: -5rem !important;
-        }
+       
         #menus .item img{
             width: 17rem;
         }
