@@ -633,13 +633,11 @@ form{
 
 }
 #menus .item img:hover{
-  
  scale: 1.05;
  transition: 0.4s;
 }
-#menus .item .flip-card {
-  perspective: 1000px;
-}
+
+
 
 /* #menus .item .flip-card-inner {
   width: 100%;

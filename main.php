@@ -39,7 +39,6 @@ if ($result->num_rows > 0) {
 
 <body>
 
-
 	<?php include("header.php") ?>
 	
 	<?php include("slideshow.php") ?>
@@ -47,7 +46,12 @@ if ($result->num_rows > 0) {
 	
 
 	<div id="full_body" style="display: flex; ">
-		<div id="left_side"></div>
+		<div id="left_side"> 
+
+ 
+
+
+		</div>
 
 		<div id="middle_side" style="width: 70%">
 		
@@ -99,7 +103,6 @@ if ($result->num_rows > 0) {
 		</div>
 
 		<div id="right_side">
-
 		</div>
 	</div>
 	

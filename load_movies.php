@@ -44,7 +44,7 @@ if (isset($_POST['category'])) {
                 $sql = "SELECT * FROM movies WHERE release_date => DATE_SUB(CURRENT_DATE, INTERVAL 14 DAY) AND active = 1 ";
                 break;    
         case 'coming_soon':
-                $sql = "SELECT * FROM movies WHERE release_date > CURRENT_DATE AND active = 1";
+                $sql = "SELECT * FROM movies WHERE release_date > CURRENT_DATE AND active = 1 ORDER BY release_date ASC" ;
                 break;
         default:
         $sql = "SELECT * FROM movies WHERE active = 1 AND release_date <= CURDATE()";

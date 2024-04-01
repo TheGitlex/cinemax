@@ -333,7 +333,7 @@ if ($user_email) {
                <p>Дата: <span id='ticketPopupDate'></span> </p>
                <p id='selectedTime'> </p>
                <input type='hidden' id='hallId'> <!-- Hidden input field for hall ID -->
-               <button id='bookbutton' ><a id='timeLink' href=''>ЗАПАЗИ</a></button>
+               <a id='timeLink' href=''><button id='bookbutton' > ЗАПАЗИ </button> </a>
             </div>
         </div>";
     }

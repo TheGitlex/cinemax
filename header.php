@@ -319,7 +319,7 @@ body::-webkit-scrollbar {
       
     }
     #cinemaxtitle, #ili{
-        color: rgb(0, 130, 252) !important;
+        color: cyan !important;
         background: transparent !important;
     }
     
