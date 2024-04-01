@@ -177,32 +177,7 @@ if ( $user_result == 0) {
 				<?php }
 			?>
 			</div>
-
-
-            <div style="margin-top: 5rem; background-color:rgba(132, 132, 132, 0.407); padding:10px; border-radius:5px; border: 5px solid black;">
-    <?php
-   $userssql = "SELECT * FROM users ORDER BY access ASC, email ASC"; // Order by access and email
-   $result = mysqli_query($conn, $userssql);
-   
-   // Checking if there are any users
-   if (mysqli_num_rows($result) > 0) {
-       // Loop through each user
-       while ($row = mysqli_fetch_assoc($result)) {
-           // Set color based on access level
-           $color = ($row['access'] == 0) ? "yellow" : "white";
-           // Displaying a link for each user's email with appropriate color
-           echo '<a class="usera" style="color: ' . $color . ';" href="profileadmin.php?uid=' . $row['id_user'] . '">' . $row['email'] . '</a><br>';
-       }
-   } else {
-       echo "No users found.";
-   }
-    ?>
-</div>
-		</div>
-
-		<div id="right_side">
-
-        <div style="position: fixed; margin-left:3rem; margin-top: 10rem; background-color:rgba(132, 132, 132, 0.407); padding:10px; border-radius:5px; border: 5px solid black;">
+            <div style=" margin-top: 1rem; background-color:rgba(132, 132, 132, 0.407); padding:10px; border-radius:5px; border: 5px solid black;">
     <div id="addremove">
         <input placeholder="email" id="addInput2" style="width: 200px;"> <br>
         <div style="display:flex">
@@ -226,6 +201,33 @@ if ($adminresult->num_rows > 0) {
 echo '</div>';
 ?>
     </div>
+
+
+            <div style="margin-top: 1rem; background-color:rgba(132, 132, 132, 0.407); padding:10px; border-radius:5px; border: 5px solid black;">
+    <?php
+   $userssql = "SELECT * FROM users ORDER BY access ASC, email ASC"; // Order by access and email
+   $result = mysqli_query($conn, $userssql);
+   
+   // Checking if there are any users
+   if (mysqli_num_rows($result) > 0) {
+       // Loop through each user
+       while ($row = mysqli_fetch_assoc($result)) {
+           // Set color based on access level
+           $color = ($row['access'] == 0) ? "yellow" : "white";
+           // Displaying a link for each user's email with appropriate color
+           echo '<a class="usera" style="color: ' . $color . ';" href="profileadmin.php?uid=' . $row['id_user'] . '">' . $row['email'] . '</a><br>';
+       }
+   } else {
+       echo "No users found.";
+   }
+    ?>
+</div>
+
+		</div>
+
+		<div id="right_side">
+
+      
 
 <div style="position: fixed; margin-left:3rem; margin-top: 30rem;background-color:rgba(132, 132, 132, 0.407); padding:10px; border-radius:5px; border: 5px solid black;"> 
 

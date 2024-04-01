@@ -296,11 +296,7 @@ if ($user_email) {
                     </div>
                 </div>    
             </div>
-        </div>
-
-       
-<!-- projectionstable -->
-<?php 
+            <?php 
     if ((strtotime($release_date) < strtotime("now"))) {
         include("projectionstable.php");
     } else if(isset($_COOKIE["user_name"])) 
@@ -308,6 +304,11 @@ if ($user_email) {
         include("projectionstable.php");
     }
 ?>
+        </div>
+
+       
+<!-- projectionstable -->
+
 
 
   <!--  -->
