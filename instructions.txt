@@ -1,0 +1,5 @@
+1. Инсталиране на xampp
+2. Пускане на Apache, MySQL сървъри
+3. Import на cinema.sql в предварително направена база данни с име cinema
+4. Слагане на папката cinemax в xampp/htdocs
+5. Пускане чрез http://localhost/cinemax/main.php
