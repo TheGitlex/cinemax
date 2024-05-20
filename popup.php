@@ -219,7 +219,6 @@
 
     <script>
         function updateTimer() {
-        // Fetch the release date and title of the next movie
         fetch('get_next_movie.php')
             .then(response => response.json())
             .then(data => {
@@ -234,11 +233,9 @@
     const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
     const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
 
-    // Adjust the release date by adding one day
     const releaseDate = new Date(data.releaseDate);
     releaseDate.setDate(releaseDate.getDate() );
 
-    // Display the countdown and movie title
     function formatDate(date) {
     const day = String(date.getDate()).padStart(2, '0');
     const month = String(date.getMonth() + 1).padStart(2, '0'); // Month starts from 0
@@ -254,18 +251,18 @@ document.getElementById('timer').innerHTML = `${days}d ${hours}h ${minutes}m ${s
 
 
                     } else {
-                        // Movie has already been released
+                     
                         document.getElementById('timer').innerHTML = 'Излязъл!';
                     }
                 } else {
-                    // No upcoming movies
+             
                     document.getElementById('timer').innerHTML = 'Няма ';
                 }
             })
             .catch(error => console.error('Error:', error));
     }
 
-    // Call the updateTimer function initially
+   
     updateTimer();
 
     // Update the timer every second

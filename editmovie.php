@@ -27,4 +27,4 @@ if (mysqli_query($conn, $query)) {
 
 echo json_encode($response);
 
-?>
+

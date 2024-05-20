@@ -6,10 +6,8 @@ require 'emailer/src/Exception.php';
 require 'emailer/src/PHPMailer.php';
 require 'emailer/src/SMTP.php';
 
-// Get data sent from JavaScript
 $data = json_decode(file_get_contents('php://input'), true);
 
-// Extract data
 $movieId = $data['movieId'] ?? null;
 $time = $data['time'] ?? null;
 $date = $data['date'] ?? null;
@@ -17,12 +15,9 @@ $seatNumbers = $data['seatNumbers'] ?? null;
 $price = $data['price'] ?? null;
 $hall = $data['hall'] ?? null;
 
-// Function to send email
 function sendEmail($movieId, $time, $date, $hall, $seatNumbers, $price) {
-    // Include database connection
     include 'database.php';
 
-    // Fetch movie title based on movie ID
     $movieTitle = '';
     $sql = "SELECT title FROM movies WHERE id_movie = $movieId";
     $result = $conn->query($sql);
@@ -32,10 +27,8 @@ function sendEmail($movieId, $time, $date, $hall, $seatNumbers, $price) {
         }
     }
 
-    // Get recipient email from cookie
     $recipientEmail = isset($_COOKIE['user_email']) ? $_COOKIE['user_email'] : '';
 
-    // Create a new PHPMailer instance
     $mail = new PHPMailer(true);
 
     try {
@@ -59,7 +52,6 @@ function sendEmail($movieId, $time, $date, $hall, $seatNumbers, $price) {
         $mail->Encoding = 'base64'; // Set encoding to base64
         $mail->Subject = '=?UTF-8?B?' . base64_encode('Потвърждение за билет') . '?='; // Subject with Bulgarian text
 
-        // Construct email body with movie details, selected seats, and price
         $mail->Body = "
     <b>Филм:</b> $movieTitle <br>
     <b>Час:</b> $time<br>
@@ -80,7 +72,6 @@ function sendEmail($movieId, $time, $date, $hall, $seatNumbers, $price) {
             )
         );
 
-        // Send the email
         $mail->send();
         echo 'Message has been sent';
     } catch (Exception $e) {
@@ -88,6 +79,5 @@ function sendEmail($movieId, $time, $date, $hall, $seatNumbers, $price) {
     }
 }
 
-// Call the sendEmail function with the provided data
 sendEmail($movieId, $time, $date, $hall, $seatNumbers, $price);
 

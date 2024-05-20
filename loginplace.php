@@ -3,23 +3,21 @@ include("database.php");
 $user_email = isset($_COOKIE['user_email']) ? $_COOKIE['user_email'] : null;
 
 if ($user_email) {
-    // SQL query to get user information for the currently logged-in user
+
     $sql = "SELECT * FROM users WHERE email = '$user_email'";
     $result3 = $conn->query($sql);
 
     if ($result3->num_rows > 0) {
-        // Fetch the user information
+
         $row = $result3->fetch_assoc();
 
-        // Check the user's role
-        $user_result = $row['admin']; // Assuming the role is stored in the 'f_name' column
+        $user_result = $row['admin']; 
 
-        // Now you can use $user_result to check if the user is an admin
     }
 }
 
 if ( isset($_COOKIE['user_name'])) {
-    // Redirect to error.php
+
     header("Location: main.php");
     exit();
 }
@@ -37,20 +35,17 @@ if ( isset($_COOKIE['user_name'])) {
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
-
-
 <body>
-  
+
 <?php include("header.php") ?>
 <?php include("popup.php") ?>
-
 
 <div id="aligner">
 <div id="box">
     <!-- <div id="box2">
 <form class="form" action="login.php" method="post">
     <div id="title">Вход<br /></div>
-    
+
    <div class="input-container">
     <input name="email" type="email" id="email" required>
     <span class="label">Email</span>
@@ -68,14 +63,10 @@ if ( isset($_COOKIE['user_name'])) {
     <button type="submit" class="animated-button" name="login"><span>Вход</span><span></span></button>
 </form>
 
-
-    
     </div> -->
 </div>
-    
+
 </div>
-
-
 
 <section class="h-100 gradient-form" style="background-color: transparent; margin-top:6rem;" >
   <div class="container py-5 h-100">
@@ -130,8 +121,5 @@ if ( isset($_COOKIE['user_name'])) {
   </div>
 </section>
 
-
-
-    
 </body>
 </html>

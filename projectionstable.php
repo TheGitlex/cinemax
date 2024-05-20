@@ -1,9 +1,9 @@
 <div id="projections">
 <?php
 for ($i = 0; $i <= 5; $i++) {
-    // Calculate the next day's date
+
     $nextDay = date('d.m', strtotime('+' . $i . ' day'));
-    // Format the next day's date with the correct day of the week
+
     $dayOfWeek = date('N', strtotime('+' . $i . ' day'));
 
     switch ($dayOfWeek) {
@@ -31,23 +31,16 @@ for ($i = 0; $i <= 5; $i++) {
         <!-- </div> -->
         <hr style="margin:1rem;grid-column: 1 / -1; ">
 
-        
-
         <?php
-// Assuming you have a database connection established
 
-// Get the movie ID from the URL
 $movieId = $_GET['id'] ?? null;
 
-// Check if movie ID is provided
 if ($movieId) {
-    $projectionsFound = false; // Flag to track if any projections are found
-    
-    // Iterate over the next 7 days
+    $projectionsFound = false; 
+
     for ($i = 0; $i < 7; $i++) {
         $date = date('Y-m-d', strtotime("+$i days"));
 
-        // Query projections for the current date and movie ID
         $query = "SELECT p.id_projection, DATE_FORMAT(p.time, '%H:%i') AS formatted_time, p.id_hall
                   FROM projections p
                   WHERE p.date = '$date' 
@@ -57,25 +50,23 @@ if ($movieId) {
         $result = $conn->query($query);
 
         echo '<div class="projectcolumn">';
-        
-        // Check if there are any projections for the current date
+
         if ($result->num_rows > 0) {
-            // Output each projection as a button with formatted time
+
             while ($row = $result->fetch_assoc()) {
-                $projectionsFound = true; // Set flag to true if projections are found
+                $projectionsFound = true; 
                 if(isset($_COOKIE["user_name"]))
                 echo '<button onclick="openTicket(this, \'' . $i . '\', \'' . $row['id_projection'] . '\', \'' . $row['id_hall'] . '\')">' . $row['formatted_time'] . '</button>';
             else { echo '<button onclick="test()">'. $row['formatted_time'] .'</button>';}
             }
         } else {
-            // Output an empty column if there are no projections for the current date
+
             echo '<button style="visibility: hidden;"></button>';
         }
 
         echo '</div>';
     }
 
-    // Check if any projections were found
     if (!$projectionsFound) {
         echo "<p>Няма прожекции за тези дни.</p>";
     }
@@ -84,10 +75,9 @@ if ($movieId) {
 }
 ?>
 
-
 <?php
 if (isset($_COOKIE['user_name']) && $user_result == 1) {
-    // User is logged in as admin
+
     echo '<div class="edit" style="margin-top:76rem; left:0">
     <input type="hidden" id="idmovie" value="' . $movieId . '">
     <input id="datetime" type="datetime-local" placeholder="Date and Time">
@@ -102,25 +92,21 @@ function addProjection() {
     var datetime = document.getElementById('datetime').value;
     var hall = document.getElementById('hall').value;
 
-    // Validate input values (you can add your own validation logic here)
-
-    // Extract date and time from datetime input
     var datetimeParts = datetime.split('T');
     var date = datetimeParts[0];
-    var hour = datetimeParts[1].substring(0, 5); // Extract HH:MM format
+    var hour = datetimeParts[1].substring(0, 5); 
 
-    // Send the data to the server using AJAX
     var xhr = new XMLHttpRequest();
     xhr.open('POST', 'add_projection.php', true);
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     xhr.onreadystatechange = function () {
         if (xhr.readyState == XMLHttpRequest.DONE) {
             if (xhr.status == 200) {
-                // Projection added successfully, handle response if needed
+
                 console.log(xhr.responseText);
                 location.reload();
             } else {
-                // Error occurred, handle error if needed
+
                 console.error('Error: ' + xhr.status);
             }
         }
@@ -128,8 +114,6 @@ function addProjection() {
     xhr.send('idMovie=' + idMovie + '&hour=' + hour + '&date=' + date + '&hall=' + hall);
 }
 
-
 </script>
-
 
         </div>

@@ -1,18 +1,17 @@
-    <?php include("database.php");
+<?php include("database.php");
 
     $user_email = isset($_COOKIE['user_email']) ? $_COOKIE['user_email'] : null;
     $userId = $_COOKIE['user_id'] ?? null;
 
     if ($user_email) {
-        // SQL query to get user information for the currently logged-in user
+
         $sql = "SELECT * FROM users WHERE email = '$user_email'";
         $result3 = $conn->query($sql);
 
         if ($result3->num_rows > 0) {
-            // Fetch the user information
+
             $row = $result3->fetch_assoc();
 
-            // Check the user's role
             $f_name = $row['f_name'];
             $l_name = $row['l_name'];
             $email = $row['email'];
@@ -21,20 +20,16 @@
             $password=$row['password'];
             $pfp = $row['pfp'];
             $formattedDate = date('d/m/Y', strtotime($joined));
-            $birth = date('d/m/Y', strtotime($birth)); // Assuming the role is stored in the 'f_name' column
+            $birth = date('d/m/Y', strtotime($birth)); 
 
-            // Now you can use $user_result to check if the user is an admin
         }
     }
 
-
-
     if ( isset($_COOKIE['user_name']) ==false) {
-        // Redirect to error.php
+
         header("Location: main.php");
         exit();
     }
-
 
     $sql = "SELECT 
     t.id_ticket, 
@@ -62,25 +57,19 @@ ORDER BY
     t.purchase_date DESC;
 ";
 
-
-
-
-
 $result = $conn->query($sql);
     ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> Профил - <?php echo $f_name ?></title>
   <link rel="stylesheet" href="profile.css">
-   
+
     <link rel="icon" href="logo.png" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.2/min/dropzone.min.js" integrity="sha512-mPzlofW5JGDVcc0MYWiXz0vI20v0+IwBU0BZnLkfHIdqTruPRvYyNDmy2Oz0zIPOXB6RpdGhZzF+YoHu+4d8QA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -89,31 +78,24 @@ $result = $conn->query($sql);
 
 <body>
 
-
 <?php include("header.php") ?>
-
 
 <!-- <div id="aligner" >
     <div id="box">
 
-
-   
     </div>
     <div id=" profile">
 
      <p>  </p>
-    
-    
-    
+
     </div>
-    
+
 </div> -->
 
 <div class="container">
 <p class="menutitle"> Профил </p>
     <div class="main-body">
-    
-    
+
           <div class="row gutters-sm">
             <div class="col-md-4 mb-3">
               <div class="card">
@@ -141,7 +123,7 @@ $result = $conn->query($sql);
                   </div>
                 </div>
               </div>
-             
+
             </div>
             <div class="col-md-8">
     <div class="card mb-3">
@@ -194,7 +176,7 @@ $result = $conn->query($sql);
 </div>
 
                 <hr>
-                
+
                 <div class="row">
                     <div class="col-sm-12">
                         <button type="button" id="editButton" class="btn btn-info"><i class="fa fa-pencil" style="color: white"></i></button>
@@ -207,12 +189,10 @@ $result = $conn->query($sql);
     </div>
 </div>
 
-
           </div>
 
         </div>
     </div>
-
 
     <div class="container" style="margin-top: 10px !important;">
     <p class="menutitle"> За Мен </p>
@@ -222,32 +202,23 @@ $result = $conn->query($sql);
               <div class="card"style="height:60vh;overflow: auto;overflow-x: hidden;">
                 <div class="card-body">
                   <div class="d-flex flex-column align-items-center text-center">
-                
-
 
                     <div class="mt-3" >
                       <h4>РЕЙТИНГИ:</h4>
                       <hr>
                       <?php
-// Assuming you have a database connection established
-
-// Get the user ID from the cookie
-
 
 if ($userId) {
-    // Query to retrieve ratings and associated movie titles
+
     $sql3 = "SELECT r.rating_value, m.title,m.icon, m.id_movie, m.active
             FROM ratings r
             JOIN movies m ON r.id_movie = m.id_movie
             WHERE r.id_user = $userId AND active=1 ORDER BY rating_value DESC" ;
 
-    // Execute the query
     $result3 = $conn->query($sql3);
 
     if ($result3->num_rows > 0) {
-       
-      
-        // Output each rating and its associated movie title
+
         while ($row = $result3->fetch_assoc()) {
             $rating = $row['rating_value'];
             $movieTitle = $row['title'];
@@ -264,7 +235,7 @@ if ($userId) {
                     <div class="col-md-9 mt-3">
                         <p style="font-size:1.2rem;"><?php echo $movieTitle; ?></p>
                         <p style="font-size:1.3rem;"> <?php echo $rating; ?> <i class='fa fa-star'></i></p>
-                       
+
                     </div>
                 </div>
                 <hr>
@@ -280,7 +251,7 @@ if ($userId) {
                   </div>
                 </div>
               </div>
-             
+
             </div>
             <div class="col-md-8">
     <div class="card mb-3" style="height:60vh;overflow: auto;">
@@ -292,17 +263,16 @@ if ($userId) {
     </div>
     <div class="col-md-6 text-md-end">
         <?php
-        // Query to calculate the total price of tickets purchased by the user
+
         $totalPriceQuery = "SELECT SUM(price) AS total_price FROM tickets WHERE id_user = $userId";
-        // Execute the query to get the total price
+
         $totalPriceResult = $conn->query($totalPriceQuery);
-        // Check if the query was successful
+
         if ($totalPriceResult) {
-            // Fetch the total price from the result
+
             $totalPriceRow = $totalPriceResult->fetch_assoc();
             $totalPrice = $totalPriceRow['total_price'];
 
-            // Output the total price inside the <h6> element
             if($totalPrice>0.00)
             echo "<h6>Общо: $totalPrice</h6>"; 
         else echo "<h6>Общо: 0.00</h6>";
@@ -310,7 +280,6 @@ if ($userId) {
         ?>
     </div>
 </div>
-
 
          <hr>
     <!-- Ticket History Section -->
@@ -327,11 +296,10 @@ if ($userId) {
             $time = $row['time'];
             $hall = $row['id_hall'];
 
-            // Format purchase date
             $formatted_purchase_date = date('d/m/Y', strtotime($purchase_date));
     ?>
             <div class="row ticket-item">
-                
+
                 <div class="col-sm-2">
                     <!-- Movie Icon -->
                     <img src="icons/<?php echo $icon_url; ?>" alt="Movie Icon" class="movie-icon" style="width:100%;border: 4px solid black; border-radius:5px;">
@@ -357,25 +325,17 @@ if ($userId) {
     <!-- End of Ticket History Section -->
 </form>
 
-
         </div>
     </div>
 </div>
-
 
           </div>
 
         </div>
     </div>
-    
-
-
-
-
 
    <br> <br> <br><br><br>
 <?php include("footer.php"); ?>
-
 
 <script>
     function openLinkInput() {
@@ -390,26 +350,20 @@ function insertLink() {
     const linkInput = document.getElementById('linkInput');
     const imageURL = linkInput.value.trim();
 
-    // Update the user's profile picture in the database
     if (imageURL) {
-        // Assuming you have an AJAX function to handle the server-side update
-        // Modify this part according to your implementation
+
         updateProfilePicture(imageURL);
     } else {
         alert('Please enter a valid image link.');
     }
 
-    // Close the input after handling the link
     closeLinkInput();
 }
 
-// Replace this with your actual AJAX implementation
 function updateProfilePicture(imageURL) {
     const formData = new FormData();
     formData.append('imageURL', imageURL);
 
-    // Perform AJAX request to update the user's profile picture in the database
-    // Example using fetch API:
     fetch('updatePfp.php', {
         method: 'POST',
         body: formData,
@@ -417,10 +371,10 @@ function updateProfilePicture(imageURL) {
     .then(response => response.json())
     .then(data => {
         if (data.success) {
-            // Handle success, if needed
+
            location.reload();
         } else {
-            // Handle failure, if needed
+
             console.error('Error updating profile picture:', data.message);
         }
     })
@@ -433,71 +387,58 @@ document.addEventListener("DOMContentLoaded", function() {
     const editButton = document.getElementById("editButton");
     const saveChangesButton = document.getElementById("saveChangesButton");
 
-    // Function to toggle edit mode
     function toggleEditMode() {
         const inputFields = document.querySelectorAll(".form-control");
 
         inputFields.forEach(function(field, index) {
             if (index === 0 || index === 1 || index === 4) {
-                field.disabled = !field.disabled; // Toggle disabled attribute
+                field.disabled = !field.disabled; 
                 if (field.disabled) {
-                    field.setAttribute("data-placeholder", field.value); // Store original value as placeholder
-                    field.value = field.getAttribute("placeholder"); // Set placeholder as value
+                    field.setAttribute("data-placeholder", field.value); 
+                    field.value = field.getAttribute("placeholder"); 
                 } else {
-                    field.value = field.getAttribute("data-placeholder"); // Restore original value from placeholder
-                    field.removeAttribute("data-placeholder"); // Remove placeholder attribute
+                    field.value = field.getAttribute("data-placeholder"); 
+                    field.removeAttribute("data-placeholder"); 
                 }
             }
         });
 
-        // Toggle button visibility
         editButton.style.display = editButton.style.display === "none" ? "inline" : "none";
         saveChangesButton.style.display = saveChangesButton.style.display === "none" ? "inline" : "none";
     }
 
-    // Add click event listener to edit button
     editButton.addEventListener("click", function() {
         toggleEditMode();
     });
 
-    // Add click event listener to save changes button
     saveChangesButton.addEventListener("click", function() {
-    // Get updated values from input fields
+
     const newFirstName = document.getElementById("inputName").value;
     const newLastName = document.getElementById("inputLastName").value;
     const newPassword = document.getElementById("inputPassword").value;
 
-    // Retrieve user_email from PHP
-   
-
-    // Send AJAX request to update profile
     const xhr = new XMLHttpRequest();
     xhr.open("POST", "updateProfile.php", true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xhr.onreadystatechange = function() {
         if (xhr.readyState === XMLHttpRequest.DONE) {
             if (xhr.status === 200) {
-                // Handle success
+
                 console.log(xhr.responseText);
                 location.reload();
-              
+
             } else {
-                // Handle error
-               
+
                 console.error("Error updating profile:", xhr.responseText);
             }
         }
     };
     xhr.send("&newFirstName=" + encodeURIComponent(newFirstName) + "&newLastName=" + encodeURIComponent(newLastName) + "&newPassword=" + encodeURIComponent(newPassword));
 
-    // Toggle edit mode after saving changes
     toggleEditMode();
 });
 
 });
-
-
-
 
 function scrollToBottom() {
   const documentHeight = document.documentElement.scrollHeight;
@@ -505,9 +446,6 @@ function scrollToBottom() {
 }
 
 </script>
-
-
-
 
 <script>
   function test() {
@@ -520,9 +458,9 @@ function scrollToBottom() {
   html: '<p> Това ще изтрие всичко за Вас </p>',
   denyButtonText: `Изтрий`
 }).then((result) => {
-  /* Read more about isConfirmed, isDenied below */
+
   if (result.isConfirmed) {
-    //donothing
+
   } else if (result.isDenied) {
     Swal.fire({
                 title: "Акаунтът ще бъде изтрит.",
@@ -532,17 +470,14 @@ function scrollToBottom() {
                 url: 'change_access.php',
                 type: 'POST',
                 success: function(response) {
-                    // Handle success response
-                   
-                        // Redirect to main.php
+
                         window.location.href = "main.php";
                 location.reload();
-                   
+
                 },});
-                // Redirect to main.php
-              
+
             });
-    
+
   }
 });
   }

@@ -4,7 +4,6 @@ include("database.php");
 if (isset($_POST['category'])) {
     $category = $_POST['category'];
 
-    // Modify the SQL query based on the selected category
     switch ($category) {
         case 'all':
             $sql = "SELECT * FROM movies WHERE active = 1 AND release_date <= CURRENT_DATE";
@@ -24,7 +23,7 @@ if (isset($_POST['category'])) {
                         break;
           case 'comedy':
                             $sql = "SELECT * FROM movies WHERE genre LIKE '%Комедия%' AND active = 1 AND release_date <= CURRENT_DATE";
-        
+
                                 break;
          case 'a-z':
                             $sql = "SELECT * FROM movies WHERE active = 1 AND release_date <= CURRENT_DATE order by title";
@@ -51,7 +50,6 @@ if (isset($_POST['category'])) {
 
     }
 
-    // Execute the SQL query and display the movies
     $result = mysqli_query($conn, $sql);
 
     if ($result) {

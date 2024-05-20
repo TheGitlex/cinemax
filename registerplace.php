@@ -3,23 +3,21 @@ include("database.php");
 $user_email = isset($_COOKIE['user_email']) ? $_COOKIE['user_email'] : null;
 
 if ($user_email) {
-    // SQL query to get user information for the currently logged-in user
+
     $sql = "SELECT * FROM users WHERE email = '$user_email'";
     $result3 = $conn->query($sql);
 
     if ($result3->num_rows > 0) {
-        // Fetch the user information
+
         $row = $result3->fetch_assoc();
 
-        // Check the user's role
-        $user_result = $row['admin']; // Assuming the role is stored in the 'f_name' column
+        $user_result = $row['admin']; 
 
-        // Now you can use $user_result to check if the user is an admin
     }
 }
 
 if ( isset($_COOKIE['user_name'])) {
-    // Redirect to error.php
+
     header("Location: main.php");
     exit();
 }
@@ -49,11 +47,11 @@ if ( isset($_COOKIE['user_name'])) {
         font-size: 1rem;
         color: white;
         font-weight: 600;
-        
+
     } 
     </style>
     <?php
-    // Display errors if any
+
     if (!empty($_GET['error'])) {
         echo '<div class="error-container">';
         echo '<p class="error">' . urldecode($_GET['error']) . '</p>';
@@ -97,23 +95,14 @@ if ( isset($_COOKIE['user_name'])) {
     <p class="signin">Имате акаунт? <a href="loginplace.php">Вход</a></p>
 </form>
 
-
 </div>
-
-
-
-
-
-
 
     <script>
          function enableButton() {
             var checkbox = document.getElementById("approve");
             var button = document.querySelector(".submit");
 
-            // Enable the button if the checkbox is checked, otherwise disable it
             button.disabled = !checkbox.checked;
-           
 
         }
     </script>

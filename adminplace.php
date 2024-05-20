@@ -9,30 +9,26 @@ if ($result->num_rows > 0) {
 $user_email = isset($_COOKIE['user_email']) ? $_COOKIE['user_email'] : null;
 
 if ($user_email) {
-    // SQL query to get user information for the currently logged-in user
+
     $sql = "SELECT * FROM users WHERE email = '$user_email'";
     $result3 = $conn->query($sql);
 
     if ($result3->num_rows > 0) {
-        // Fetch the user information
+
         $row = $result3->fetch_assoc();
 
-        // Check the user's role
-        $user_result = $row['admin']; // Assuming the role is stored in the 'f_name' column
+        $user_result = $row['admin']; 
 
-        // Now you can use $user_result to check if the user is an admin
     }
 }
 
 if ( $user_result == 0) {
-    // Redirect to error.php
+
     header("Location: error.php");
     exit();
 }
 
-
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -43,16 +39,12 @@ if ( $user_result == 0) {
 	<title>CINEMAX</title>
 	<link rel="icon" href="logo.png" />
 	<link href="adminplace.css" rel="stylesheet" />
-	
-    
+
 </head>
 
 <body>
 
 <?php include("header.php") ?>
-   
-
-	
 
 	<div id="full_body" style="display: flex; ">
 		<div id="left_side" style="margin-top: 500px">
@@ -71,7 +63,7 @@ if ( $user_result == 0) {
         </div>
 
         <script>
-           
+
         function addmovie(){
            let i =  document.getElementById("addInput").value;
            updateStatus(i, 1);
@@ -82,10 +74,10 @@ if ( $user_result == 0) {
 
         }
         function addNewMovie() {
-        // Perform AJAX request to the server-side script that executes the SQL query
+
         $.ajax({
             type: 'POST',
-            url: 'addMovie.php', // Replace with the actual server-side script
+            url: 'addMovie.php', 
             success: function (response) {
                 location.reload();
             },
@@ -110,8 +102,8 @@ if ( $user_result == 0) {
                 return response.text();
             })
             .then(data => {
-            
-                location.reload(); // Reload the page
+
+                location.reload(); 
             })
             .catch(error => {
                 console.error('Error updating status:', error);
@@ -130,7 +122,6 @@ if ( $user_result == 0) {
 			<br>
 			<br>
 
-			
 			<div id="tagsdiv">
 			<button id="btnAllAdmin"  onclick="toggleButton('btnAllAdmin')" >Всички <i class="fa fa-list"></i></button>
    			<button id="btnAnimations"  onclick="toggleButton('btnAnimations')">Анимация</button>
@@ -158,7 +149,7 @@ if ( $user_result == 0) {
 						$backgroundColor = 'purple';
 					} else {$text = 'В продажба';
 						$backgroundColor = 'green';}
-					
+
 				} elseif ($movie['active'] == 0) {
 					$text = 'not available';
 					$backgroundColor = 'red';
@@ -167,7 +158,7 @@ if ( $user_result == 0) {
 					$text = 'Очаквайте скоро';
 					$backgroundColor = 'rgb(0, 161, 236);';
 				}
-				
+
 		?>
 				<a class="menuitem" href="movie.php?id=<?php echo $movie['id_movie'] ?>">
 					<p class="nalichnost" style="background-color: <?php echo $backgroundColor?>;" > <?php echo $text ?> </p> 
@@ -190,31 +181,28 @@ $adminsql = "SELECT * FROM users WHERE admin=1 ORDER BY email ASC";
 $adminresult = $conn->query($adminsql);
 echo '<div style="height:100px;overflow:auto">';
 if ($adminresult->num_rows > 0) {
-    // Output data of each row
+
     while ($row = $adminresult->fetch_assoc()) {
-       
-        // Echo the code and amount within <p> tags
+
         echo "<p style='color: white;'> " . $row["email"]. "</p>";
-       
+
     }
 } 
 echo '</div>';
 ?>
     </div>
 
-
             <div style="margin-top: 1rem; background-color:rgba(132, 132, 132, 0.407); padding:10px; border-radius:5px; border: 5px solid black;">
     <?php
-   $userssql = "SELECT * FROM users ORDER BY access ASC, email ASC"; // Order by access and email
+   $userssql = "SELECT * FROM users ORDER BY access ASC, email ASC"; 
    $result = mysqli_query($conn, $userssql);
-   
-   // Checking if there are any users
+
    if (mysqli_num_rows($result) > 0) {
-       // Loop through each user
+
        while ($row = mysqli_fetch_assoc($result)) {
-           // Set color based on access level
+
            $color = ($row['access'] == 0) ? "yellow" : "white";
-           // Displaying a link for each user's email with appropriate color
+
            echo '<a class="usera" style="color: ' . $color . ';" href="profileadmin.php?uid=' . $row['id_user'] . '">' . $row['email'] . '</a><br>';
        }
    } else {
@@ -226,8 +214,6 @@ echo '</div>';
 		</div>
 
 		<div id="right_side">
-
-      
 
 <div style=" margin-left:3rem; margin-top: 30rem;background-color:rgba(132, 132, 132, 0.407); padding:10px; border-radius:5px; border: 5px solid black;"> 
 
@@ -244,11 +230,9 @@ echo '</div>';
 <br>
 <script>
 function generateCode() {
- 
-  // Generate a random 4-letter code
+
   const generatedCode = generateRandomCode(4);
 
-  // Insert the code into the input field
   $("#codeInput").val(generatedCode);
   $("#amountInput").val(5);
 
@@ -272,9 +256,9 @@ $codesql = "SELECT * FROM discounts WHERE active=1 ORDER BY amount DESC";
 $coderesult = $conn->query($codesql);
 echo '<div style="height:200px;overflow:auto">';
 if ($coderesult->num_rows > 0) {
-    // Output data of each row
+
     while ($row = $coderesult->fetch_assoc()) {
-        // Echo the code and amount within <p> tags
+
         echo "<p style='color: white;'> " . $row["code"] . "  " . $row["amount"] . "%</p>";
 
     }
@@ -291,40 +275,37 @@ document.getElementById('addCodeButton').addEventListener('click', function() {
     let amount = document.getElementById('amountInput').value.trim();
 
     if (code !== '' && amount !== '' && amount>=0) {
-        // AJAX call to add the discount
+
         let xhr = new XMLHttpRequest();
         xhr.open('POST', 'add_discount.php');
         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
         xhr.onload = function() {
             if (xhr.status === 200) {
-                // Refresh the table
-                location.reload(); // Reload the page
+
+                location.reload(); 
             }
         };
         xhr.send('code=' + encodeURIComponent(code) + '&amount=' + encodeURIComponent(amount));
     }
 });
 
-
 document.getElementById('removeCodeButton').addEventListener('click', function() {
     let code = document.getElementById('codeInput').value.trim();
-    
+
     if (code !== '') {
-        // AJAX call to remove the discount
+
         let xhr = new XMLHttpRequest();
         xhr.open('POST', 'remove_discount.php');
         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
         xhr.onload = function() {
             if (xhr.status === 200) {
-                // Refresh the table
-                location.reload(); // Reload the page
+
+                location.reload(); 
             }
         };
         xhr.send('code=' + encodeURIComponent(code));
     }
 });
-
-
 
 </script>
 
@@ -332,34 +313,28 @@ document.getElementById('removeCodeButton').addEventListener('click', function()
    function updateAdmin(action) {
     var email = $("#addInput2").val().trim();
 
-    // Check if the email is "admin@gmail.com"
     if (email.toLowerCase() === 'admin@gmail.com' && action === 'remove') {
         alert("Cannot remove admin status for 'admin@gmail.com'");
-        
+
         return;
     }
 
-        // Make an AJAX request to the PHP script
         $.ajax({
             type: "POST",
             url: "updateAdmin.php",
             data: { email: email, action: action },
             success: function(response) {
-                // Handle the response from the server
+
                 alert(response);
-                location.reload(); // Reload the page
+                location.reload(); 
             }
         });
     }
 
-
 </script>
-    
+
 	</div>
     </div>
-
-
-	
 
 	<a id="backtotopbutton"></a>
     <script>
@@ -382,12 +357,8 @@ function scrollToBottom() {
   window.scrollTo({ top: documentHeight, behavior: "smooth" });
 }
 
-
 $(document).ready(function () {
-  // Initial load
 
-
-  // Button click events
   $("#btnAll").click(function () {
     loadMovies("all");
   });
@@ -427,10 +398,10 @@ $(document).ready(function () {
   function loadMovies(category) {
     $.ajax({
       type: "POST",
-      url: "load_movies.php", // Create this PHP file to handle database queries
+      url: "load_movies.php", 
       data: { category: category },
       success: function (response) {
-        // Update the movies container with the new data
+
         $("#menu").html(response);
       },
       error: function () {
@@ -440,14 +411,10 @@ $(document).ready(function () {
   }
 });
 
-
-
     </script>
 
 <br> <br><br>
 <?php include("footer.php") ?>
-
-
 
 </body>
 

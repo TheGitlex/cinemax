@@ -1,38 +1,35 @@
 <?php
-// Include database connection
+
 include 'database.php';
 
-// Get movie ID, projection ID, time, and date from the GET data
 $movieId = $_GET['id'] ?? null;
 $projectionId = $_GET['projection'] ?? null;
 $time = $_GET['time'] ?? null;
 $date = $_GET['date'] ?? null;
 $hall = $_GET['hall'] ?? null;
 
-// Check if all necessary data is available
 if ($movieId && $projectionId && $time && $date) {
-  // Query the database to get all taken seat numbers for the current projection and movie
+
   $query = "SELECT seat_number FROM tickets WHERE id_movie = $movieId AND id_projection = $projectionId";
   $result = $conn->query($query);
 
-  // Check if there are any taken seats
   if ($result->num_rows > 0) {
-      // Store taken seat numbers in an array
+
       $takenSeats = [];
       while ($row = $result->fetch_assoc()) {
-          // Split the comma-separated string into individual seat numbers
+
           $seatNumbers = explode(',', $row['seat_number']);
-          // Add each seat number to the takenSeats array
+
           foreach ($seatNumbers as $seatNumber) {
               $takenSeats[] = $seatNumber;
           }
       }
   } else {
-      // No taken seats found
+
       $takenSeats = [];
   }
 } else {
-  // Missing parameters, set taken seats as empty array
+
   $takenSeats = [];
 }
 
@@ -50,55 +47,46 @@ if ($movieId && $projectionId && $time && $date) {
 <link href="movieseats.css" rel="stylesheet">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"></script>
-  
 
 </head>
 <body>
 <?php include("header.php") ?>
 
   <div id="aligner">
-   
+
   <div style="margin-top: 7rem; background-color:grey; padding:5px; border: 5px solid black; border-radius: 5px;user-select: none;">
         <div class="labelseat"></div> <label> Свободно </label>
         <div class="labelseat" style=" background-color: rgb(151, 17, 17) !important;"></div> <label> Заето </label>
         <div class="labelseat " style="background-color: rgb(208, 135, 0);"></div> <label> Избрано (до 10) </label>
-    
+
       </div>
 
       <div class="cinema-container">
         <div class="hall-info">
        <p>Зала</p>   
         <p><?php echo $hall; ?> </p>
-     
+
       </div>
-     
-        
+
           <div class="screen"><img src="screen.webp"> </div>
           <?php  
 if ($hall) {
-    // Query to get the hall details including the number of seats
+
     $query = "SELECT seats FROM halls WHERE id_hall = ?";
-    
-    // Prepare the statement
+
     $stmt = $conn->prepare($query);
-    
-    // Bind parameters
+
     $stmt->bind_param("i", $hall);
-    
-    // Execute the statement
+
     $stmt->execute();
-    
-    // Bind result variables
+
     $stmt->bind_result($totalSeats);
-    
-    // Fetch the result
+
     $stmt->fetch();
-    
-    // Close the statement
+
     $stmt->close();
-    
-    // Calculate the number of rows and seats per row
-    $rows = ceil($totalSeats / 16); // Assuming 16 seats per row
+
+    $rows = ceil($totalSeats / 16); 
     $seatsPerRow = ceil($totalSeats / $rows);
 }
 ?>
@@ -108,13 +96,13 @@ if ($hall) {
     <div class="section" style="float: left;">
         <?php
         $seatNumber = 1;
-        
-        for ($i = 0; $i < $rows; $i++) { // Repeat the rows
+
+        for ($i = 0; $i < $rows; $i++) { 
             echo '<div class="row">';
-            $startSeat = $seatNumber + ($i * 16); // Calculate the starting seat number for the current row
-            for ($j = 0; $j < 8; $j++) { // Repeat the seats 8 times in each row
+            $startSeat = $seatNumber + ($i * 16); 
+            for ($j = 0; $j < 8; $j++) { 
                 $currentSeat = $startSeat + $j;
-                if ($currentSeat <= $totalSeats) { // Check if the seat number exceeds the total seats
+                if ($currentSeat <= $totalSeats) { 
                     $seatClass = in_array($currentSeat, $takenSeats) ? 'taken' : 'available';
                     echo '<div class="seat ' . $seatClass . '" onclick="toggleSeat(' . $currentSeat . ')">' . $currentSeat . '</div>';
                 }
@@ -123,18 +111,18 @@ if ($hall) {
         }
         ?>
     </div>
-    
+
     <!-- Right section -->
     <div class="section" style="float: right;">
         <?php
-        $startRightSection = $seatNumber + 8; // Start from seat 9
-        
-        for ($i = 0; $i < $rows; $i++) { // Repeat the rows
+        $startRightSection = $seatNumber + 8; 
+
+        for ($i = 0; $i < $rows; $i++) { 
             echo '<div class="row">';
-            $startSeat = $startRightSection + ($i * 16); // Calculate the starting seat number for the current row
-            for ($j = 0; $j < 8; $j++) { // Repeat the seats 8 times in each row
+            $startSeat = $startRightSection + ($i * 16); 
+            for ($j = 0; $j < 8; $j++) { 
                 $currentSeat = $startSeat + $j;
-                if ($currentSeat <= $totalSeats) { // Check if the seat number exceeds the total seats
+                if ($currentSeat <= $totalSeats) { 
                     $seatClass = in_array($currentSeat, $takenSeats) ? 'taken' : 'available';
                     echo '<div class="seat ' . $seatClass . '">' . $currentSeat . '</div>';
                 }
@@ -146,9 +134,8 @@ if ($hall) {
 </div>
 
           <div style="clear: both;"></div>
-      
-      </div>
 
+      </div>
 
 <div class="container" style="margin-top: 5rem;">
     <div class="row">
@@ -224,7 +211,7 @@ if ($hall) {
                 </svg>
               </span>
             </h2>
-            
+
             <div id="collapsePP"  data-bs-parent="#accordionPayment" data-toggle="collapse" data-target="#demo" class="accordion-collapse collapse" > 
               <div class="accordion-body">
                 <div class="px-2 col-lg-6 mb-3" >
@@ -257,10 +244,10 @@ if ($hall) {
                   <button onclick="testCode()" class="btn btn-primary" id="testcodebutton" type="button">+</button>
                 </span> 
                  <span class="text-danger" id="discountAmount">-0.00</span>
-            
+
               </div>
             <!-- Content of Box 1 -->
-            
+
         </div>
         <!-- End of Box 1 -->
 
@@ -279,7 +266,7 @@ if ($hall) {
                       Съласен съм с <a href="#">условията за поверителност</a>
                   </label>
               </div> -->
-        
+
               <!-- More content of Box 2 -->
               <button class="btn btn-primary w-100 mt-2" onclick="purchaseTickets()">КУПИ </button>
           </div>
@@ -290,29 +277,26 @@ if ($hall) {
 
     </div>
   </div>
- 
-
 
 <script>
-   let originalTotalPrice = 0; // Variable to store the original total price
-let discountAmount = 0; // Default discount amount
-let discountApplied = false; // Flag to track if discount has been applied
+   let originalTotalPrice = 0; 
+let discountAmount = 0; 
+let discountApplied = false; 
 
 function testCode() {
     const enteredCode = document.getElementById("codeInput").value;
-    
+
     validateCodeOnServer(enteredCode)
         .then((response) => {
             if (response.valid && !discountApplied) {
-                discountAmount = response.discountAmount || 0; // Default to 0 if not provided
+                discountAmount = response.discountAmount || 0; 
                 document.getElementById("codeInput").style.border = "2px solid green";
 
-                // Update total price with discount applied
                 const totalPriceElement = document.getElementById("totalLabel");
-                const totalPrice = parseFloat(totalPriceElement.textContent.split(" ")[0]); // Get the current total price
-                originalTotalPrice = totalPrice; // Store the original total price
-                applyDiscount(); // Apply the discount to the total price
-                // discountApplied = true; // Set the flag to indicate discount has been applied
+                const totalPrice = parseFloat(totalPriceElement.textContent.split(" ")[0]); 
+                originalTotalPrice = totalPrice; 
+                applyDiscount(); 
+
             } else {
               document.getElementById("codeInput").style.border = "";
         document.getElementById("totalLabel2").textContent = `${totalPrice.toFixed(2)} BGN`;
@@ -320,27 +304,25 @@ function testCode() {
         })
         .catch((error) => {
             console.error("Error validating code:", error);
-           
+
         });
 
-  
 }
 
 function applyDiscount() {
     const totalPriceElement = document.getElementById("totalLabel2");
-    var totalPrice = originalTotalPrice; // Use the original total price
-    const discountedPrice = totalPrice * (1 - discountAmount / 100); // Calculate discounted price
-    totalPriceElement.textContent = `${discountedPrice.toFixed(2)} BGN`; // Update total price with discount applied
-    
-    // Calculate and display discount amount
+    var totalPrice = originalTotalPrice; 
+    const discountedPrice = totalPrice * (1 - discountAmount / 100); 
+    totalPriceElement.textContent = `${discountedPrice.toFixed(2)} BGN`; 
+
     const discountAmountElement = document.getElementById("discountAmount");
     const discount = totalPrice - discountedPrice;
     discountAmountElement.textContent = `-${discount.toFixed(2)} BGN`;
-   
+
 }
 
 function validateCodeOnServer(enteredCode) {
-    const endpoint = "codecheck.php"; // Update with the correct path to your PHP file
+    const endpoint = "codecheck.php"; 
 
     return fetch(endpoint, {
         method: "POST",
@@ -351,14 +333,11 @@ function validateCodeOnServer(enteredCode) {
     }).then((response) => response.json());
 }
 
-
-
-
 const seatsLabel = document.getElementById('seatsLabel');
 const totalLabel = document.getElementById('totalLabel');
-const totalLabel2 = document.getElementById('totalLabel2'); // New total label
+const totalLabel2 = document.getElementById('totalLabel2'); 
 let numSeats = 0;
-let totalPrice = 0; // Initial total price
+let totalPrice = 0; 
 
 document.addEventListener('click', function(event) {
   if (event.target.classList.contains('seat') && !event.target.classList.contains('taken')) {
@@ -368,13 +347,13 @@ document.addEventListener('click', function(event) {
     } else if (numSeats < 10) {
       event.target.classList.add('selected');
       numSeats++;
-      
+
     }
-    
+
     seatsLabel.textContent = numSeats;
-    totalPrice = numSeats * 12.50; // Calculate total price based on the number of selected seats
+    totalPrice = numSeats * 12.50; 
     totalLabel.textContent = totalPrice.toFixed(2) + ' BGN';
-    totalLabel2.textContent = totalPrice.toFixed(2) + ' BGN'; // Update the second total label
+    totalLabel2.textContent = totalPrice.toFixed(2) + ' BGN'; 
     document.getElementById("discountAmount").textContent = `-0.00`;
   }
 });
@@ -382,17 +361,14 @@ document.addEventListener('click', function(event) {
   </script>
 
 <script>
- 
 
  function purchaseTickets() {
     var selectedSeats = document.querySelectorAll('.seat.selected');
     var seatNumbers = Array.from(selectedSeats).map(seat => seat.textContent).join(',');
-    
-    // Get the price from the label with id 'totalLabel2' and remove the last 4 characters
+
     var priceWithCurrency = document.getElementById('totalLabel2').textContent;
-    var price = priceWithCurrency.slice(0, -4); // Trim the last 4 characters
-    
-    // Send data to purchasedticket.php using fetch API
+    var price = priceWithCurrency.slice(0, -4); 
+
     fetch('purchasedticket.php', {
         method: 'POST',
         headers: {
@@ -410,7 +386,7 @@ document.addEventListener('click', function(event) {
     })
     .then(response => {
         if (response.ok) {
-            // If insertion is successful, send email
+
             sendEmail();
             updateCodeInput();
         } else {
@@ -420,7 +396,7 @@ document.addEventListener('click', function(event) {
     .catch(error => console.error('Error:', error));
 
     function sendEmail() {
-        // Send data to send_email.php using fetch API
+
         fetch('send_email.php', {
             method: 'POST',
             headers: {
@@ -438,7 +414,7 @@ document.addEventListener('click', function(event) {
         })
         .then(response => {
             if (response.ok) {
-                // If email is sent successfully, redirect to confirm.php
+
                 window.location.href = 'confirm.php';
             } else {
                 console.error('Error sending email');
@@ -447,12 +423,9 @@ document.addEventListener('click', function(event) {
         .catch(error => console.error('Error:', error));
     }
     var codeValue = document.getElementById('codeInput').value;
-    
-    function updateCodeInput() {
-    // Get the code from the input field
-    
 
-    // Send the code value to the PHP script
+    function updateCodeInput() {
+
     fetch('check_discount.php', {
         method: 'POST',
         headers: {
@@ -463,26 +436,17 @@ document.addEventListener('click', function(event) {
     .then(response => response.text())
     .then(response => {
         if (response === 'success') {
-            // Code deactivated successfully
-            // alert('Code deactivated successfully!');
+
         } else {
-            // Error occurred
-            // alert('Error updating code input: ' + response);
+
         }
     })
     .catch(error => console.log('Error updating code input: ' + error));
 }
 
-
-
 }
 
-
-
-
-
 </script>
-
 
 </body>
 </html>

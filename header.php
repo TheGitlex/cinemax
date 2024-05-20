@@ -1,24 +1,22 @@
 <?php
 include("database.php");
 
-// Check for the user_email cookie
 $user_email = isset($_COOKIE['user_email']) ? $_COOKIE['user_email'] : null;
 $userId = null;
 if ($user_email) {
-    // SQL query to get user information for the currently logged-in user
+
     $sql = "SELECT * FROM users WHERE email = '$user_email'";
     $result3 = $conn->query($sql);
 
     if ($result3->num_rows > 0) {
-        // Fetch the user information
+
         $row = $result3->fetch_assoc();
 
-        // Check the user's role
-        $user_result = $row['admin']; // Assuming the role is stored in the 'f_name' column
+        $user_result = $row['admin']; 
         $pfp= $row['pfp'];
         $f_name=$row['f_name'];
         $userId= $row['id_user'];
-        // Now you can use $user_result to check if the user is an admin
+
     }
 }
 
@@ -63,7 +61,7 @@ if ($userId) {
     cursor: pointer;
     border-radius: 5px;
     transition: 0.3s;
-    
+
 }
 
 header a:hover {
@@ -124,22 +122,22 @@ header .user-menu {
     border-radius: 8px;
     z-index: 10;
     text-align: center;
-    transition: opacity 0.3s, max-height 0.3s ease-out, left 0.3s, pointer-events 0.3s; /* Add pointer-events property for transition */
-    pointer-events: none; /* Initially set pointer-events to none */
+    transition: opacity 0.3s, max-height 0.3s ease-out, left 0.3s, pointer-events 0.3s; 
+    pointer-events: none; 
 }
 
 header .user-name:hover .user-menu {
     opacity: 1;
     max-height: 500px;
-    left: calc(70% + 10px); /* Adjust the percentage and buffer zone based on your layout */
-    pointer-events: auto; /* Set pointer-events to auto when hovering */
+    left: calc(70% + 10px); 
+    pointer-events: auto; 
 }
 
 header .user-name:not(:hover) .user-menu {
     max-height: 0;
     opacity: 0;
     left: 50%;
-    pointer-events: none; /* Set pointer-events to none when not hovering */
+    pointer-events: none; 
 }
 
 header .user-menu a {
@@ -161,23 +159,21 @@ header .user-menu a:hover {
 
 header .user-name:hover .user-menu {
     opacity: 1;
-    max-height: 500px; /* Adjust this value based on your content height */
-    left: 70%; /* Adjust the percentage based on your layout */
+    max-height: 500px; 
+    left: 70%; 
 }
 
-/* Add transition when not hovering */
 header .user-name .user-menu {
     max-height: 0;
     overflow: hidden;
-    transition: max-height 0.3s ease-out, opacity 0.3s, left 0.3s; /* Add left property for transition */
+    transition: max-height 0.3s ease-out, opacity 0.3s, left 0.3s; 
 }
 
 header .user-name:not(:hover) .user-menu {
     max-height: 0;
     opacity: 0;
-    left: 50%; /* Reset the left position when not hovering */
+    left: 50%; 
 }
-
 
 .notification-name {
     position: relative;
@@ -191,7 +187,7 @@ header .user-name:not(:hover) .user-menu {
     gap: 1rem;
     opacity: 0;
     min-width: 20rem;
-    height: auto; /* Set initial height to auto */
+    height: auto; 
     position: absolute;
     top: 100%;
     left: 50%;
@@ -202,54 +198,53 @@ header .user-name:not(:hover) .user-menu {
     border-radius: 8px;
     z-index: 10;
     text-align: center;
-    transition: opacity 0.3s, max-height 0.3s ease-out, left 0.3s; /* Add left property for transition */
+    transition: opacity 0.3s, max-height 0.3s ease-out, left 0.3s; 
 }
 body::-webkit-scrollbar-thumb {
-  background-color: #17b3cb ; /* Set the color of the scrollbar thumb */
-  border-radius: 6px; /* Set the radius of the scrollbar thumb */
+  background-color: #17b3cb ; 
+  border-radius: 6px; 
 }
 
 body::-webkit-scrollbar-track {
-    background-color: #050505; /* Set the color of the scrollbar track */
+    background-color: #050505; 
 }
 body::-webkit-scrollbar {
-  width: 11px; /* Set the width of the scrollbar */
+  width: 11px; 
 }
 .notification-menu::-webkit-scrollbar {
-    width: 12px; /* Set the width of the scrollbar */
+    width: 12px; 
 }
 
 .notification-menu::-webkit-scrollbar-thumb {
-    background-color: #333; /* Set the color of the scrollbar thumb */
-    border-radius: 6px; /* Set the radius of the scrollbar thumb */
+    background-color: #333; 
+    border-radius: 6px; 
 }
 
 .notification-menu::-webkit-scrollbar-track {
-    background-color: #666; /* Set the color of the scrollbar track */
+    background-color: #666; 
 }
 
     .notification-menu p {
         color: white;
         margin: 0;
-        
+
     }
     .notification-menu a {
         color: white;
         margin: 0;
         font-size: 1.3rem;
-        
+
     }
     .notification-name:hover .notification-menu {
         opacity: 1;
-        max-height: 500px; /* Adjust this value based on your content height */
-     
+        max-height: 500px; 
+
     }
 
-    /* Add transition when not hovering */
     .notification-name .notification-menu {
         max-height: 0;
         overflow: hidden;
-        transition: max-height 0.3s ease-out, opacity 0.3s; /* Add max-height property here */
+        transition: max-height 0.3s ease-out, opacity 0.3s; 
     }
 
     .notification-name:not(:hover) .notification-menu {
@@ -276,18 +271,18 @@ body::-webkit-scrollbar {
     }
     .notification-item:hover{
         background-color: rgba(255, 255, 255, 0.258);
-      
+
         transition:0.3s;
     }
 
     .notification-icon {
         border-radius: 10px;
-        flex-shrink: 0; /* Prevent the icon from shrinking */
-        
+        flex-shrink: 0; 
+
     }
 
     .notification-title {
-        flex-grow: 1; /* Allow the title to grow and take available space */
+        flex-grow: 1; 
         color: white;
     }
     .clear-all-button {
@@ -311,29 +306,29 @@ body::-webkit-scrollbar {
     .navbar {
         display: none;
         position: absolute;
-        top: 100%; /* Position below the header */
+        top: 100%; 
         left: 0;
         width: 100%;
         background-color: rgba(0, 0, 0, 0.8);
         padding: 10px 0 !important;
-      
+
     }
     #cinemaxtitle, #ili{
         color: cyan !important;
         background: transparent !important;
     }
-    
+
     #ratingcombo p .yellow{
         background: none;
     -webkit-background-clip: initial;
     -ms-background-clip: initial;
     -moz-background-clip: initial;
     background-clip: initial;
-    -webkit-text-fill-color: #ffffff; /* Set text color to white */
+    -webkit-text-fill-color: #ffffff; 
     -ms-text-fill-color: #ffffff;
     -moz-text-fill-color: #ffffff;
     -webkit-text-fill-color: #ffffff;
-        
+
     }
     .popup-content{
         width: 100vw !important;
@@ -376,7 +371,7 @@ body::-webkit-scrollbar {
   #projections label, #projections button{
 
     font-size: 1rem;
-    
+
   }
 
   .seat:hover{
@@ -409,7 +404,7 @@ body::-webkit-scrollbar {
   #menus{
     zoom: 0.5 !important;
   }
-  
+
     #searchnav{
         height: inherit;
     }
@@ -417,7 +412,7 @@ body::-webkit-scrollbar {
         text-align: center;
     }
     #hamburger-icon {
-   
+
     display: block !important;
 }
 
@@ -432,7 +427,6 @@ header{
 }
 }
 
-/* Style for hamburger menu icon */
 #hamburger-icon {
     background: none;
     border: none;
@@ -454,26 +448,21 @@ header{
         .col-md-4{
             margin-top:3rem !important;
         }
-       
-    /* .slider, #slideshow{
-            height: 400px !important;
-        }  */
+
 }
 @-moz-document url-prefix() {
     @media (max-width: 1920px) {
         #menus, #menu, #moviepage, #login-popup {
-          
+
            transform: scale(1); 
         }
-       
+
         #menus .item img{
             width: 17rem;
         }
-       
-       
+
     }
 }
-
 
 </style>
 
@@ -496,68 +485,65 @@ header{
         <nav class="navbar">
         <?php
             if (isset($_COOKIE['user_name']) && $user_result == 1) {
-                // User is logged in as admin
+
                 echo '<a href="adminplace.php"> Admin <i class="fa fa-wrench"></i> </a>';
             }
             ?>
         <?php
             if (isset($_COOKIE['user_name'])) {
-                // User is logged in
-               
-                    // User is logged in
+
                     echo '<div class="notification-name"><a ><i class="fa fa-bell"></i></a>';
                     if($notification_count>0)
                     echo '<div class="notification-count">' . $notification_count . '</div>';
                     echo '<div class="notification-menu">';
                     if (!empty($notifications)) {
                     foreach ($notifications as $notification) {
-                        $movieIdNotif = $notification["id_movie"]; // Assuming you have a key like 'movieId' in your $notification array
-                        // Display notification content (customize as needed)
+                        $movieIdNotif = $notification["id_movie"]; 
+
                         echo '<a href="movie.php?id=' . $movieIdNotif . '"><div class="notification-item">';
                         echo '<div class="notification-icon"><img src="icons/' . $notification['icon'] . '" alt="Movie Icon" style="width: 80px;"></div>';
                         echo '<div class="notification-title">' . $notification['title'] . ' е в продажба!</div>';
                         echo '</div> </a>';
                     }
-                 
+
                     echo '<div class="clear-all-button">';
     echo '<button onclick="clearAllNotifications()">Всички <i class="fa fa-trash"></i> </button>';
     echo '</div>';
 } else { echo 'Няма нотификации';}   
                     echo '</div>';
                     echo '</div>';
-                
+
                 echo '<div class="user-name"><a href="profile.php">' . $f_name . ' <i class="fa fa-user"></i></a>';
                 echo '<div class="user-menu">';
                 echo '<a href="profile.php"> <img loading="lazy" height="30" style="border-radius: 60px"  src="' . $pfp . '" alt=""> Профил</a>';
                 echo '<a href="logout.php"><i style="margin-top:5px; margin-left:8px;" class="fa fa-sign-out"></i> Изход</a>';
                 echo '</div>';
                 echo '</div>';
-                
-                
+
             } else {
-                // User is not logged in
+
                 echo '<a href="loginplace.php"> Вход <i class="fa fa-sign-in"></i> </a>';
             }
             ?>
              <a onclick="openlogin()"> Ново <i class="fa fa-newspaper-o"></i> </a>
             <a onclick="scrollToBottom()"> За нас <i class="fa fa-info-circle"></i> </a>
-            
+
         </nav>
-           
+
     </header>
     <nav id="mobilenav" style="margin-top:70px; display:none; background:black; position:fixed; z-index:10; width:100vw; padding:10px; font-size:1.5rem;">
         <ul >
             <?php
-            
+
              if (isset($_COOKIE['user_name']) && $user_result == 1) {
-                // User is logged in as admin
+
                 echo '<li><a href="adminplace.php"> Admin <i class="fa fa-wrench"></i></a> </li>';
             }
             if (isset($_COOKIE['user_name'])){
                 echo '<li> <div class="user-name"><a href="profile.php">' . $f_name . ' <i class="fa fa-user"></i></a></li>';
                 echo '<li><a href="logout.php"> Изход <i style="margin-top:5px; margin-left:8px;" class="fa fa-sign-out"></i></a></li>';
             } else echo ' <li><a href="loginplace.php"> Вход <i class="fa fa-sign-in"></i> </a></li>';
-     
+
        echo '<li> <a onclick="openlogin(), toggleMobileNav()"> Ново <i class="fa fa-newspaper-o"></i> </a> </li>';
        echo '<li>  <a onclick="scrollToBottom(), toggleMobileNav()"> За нас <i class="fa fa-info-circle"></i> </a>';
 ?>
@@ -575,18 +561,16 @@ header{
     }
 </script>
 
-    
     <script> function openlogin() {
   let loginform = document.getElementById("login-popup");
   let overlay = loginform.querySelector(".overlay");
 
   document.getElementById("login-popup").style.display = "flex";
-  loginform.style.top = "-100%"; // Adjust the desired position
+  loginform.style.top = "-100%"; 
 
-  // Triggering the opening animation after a short delay
   setTimeout(() => {
-    loginform.style.top = "1%"; // Move the form to the center
-    overlay.style.opacity = '1'; // Set overlay opacity to 1
+    loginform.style.top = "1%"; 
+    overlay.style.opacity = '1'; 
   }, 50);
 }
 
@@ -594,53 +578,44 @@ function closelogin() {
   let loginform = document.getElementById("login-popup");
   let overlay = loginform.querySelector(".overlay");
 
-  overlay.style.opacity = '0'; // Set opacity to 0 before hiding
-  loginform.style.top = "-100vh"; // Move the form back to the top
+  overlay.style.opacity = '0'; 
+  loginform.style.top = "-100vh"; 
 
-  // Hide the form and reset the overlay opacity after the transition duration
   loginform.addEventListener('transitionend', function handleTransitionEnd() {
     document.getElementById("login-popup").style.display = "none";
     overlay.style.opacity = '0';
-    loginform.removeEventListener('transitionend', handleTransitionEnd); // Remove the event listener to prevent multiple calls
-  }, { once: true }); // Use { once: true } to ensure the event listener is only called once
+    loginform.removeEventListener('transitionend', handleTransitionEnd); 
+  }, { once: true }); 
 }
 </script>
 
 <script>
 function clearAllNotifications() {
-    // Create an XMLHttpRequest object
+
     var xhr = new XMLHttpRequest();
 
-    // Specify the type of request and the URL
     xhr.open('GET', 'clear_notifications.php', true);
 
-    // Define what to do on successful data submission
     xhr.onload = function () {
         if (xhr.status === 200) {
-            // Reload the page or update the notification UI as needed
+
             location.reload();
         }
     };
 
-    // Send the request to the server
     xhr.send();
 }
 
-
-// JavaScript to toggle visibility of navigation links
 document.addEventListener("DOMContentLoaded", function() {
     const hamburgerIcon = document.getElementById("hamburger-icon");
     const navbar = document.querySelector(".navbar");
 
-    // Toggle visibility of navigation links when hamburger icon is clicked
     hamburgerIcon.addEventListener("click", function() {
         navbar.classList.toggle("show");
     });
 });
 
-
 </script>
-
 
 <?php include("popup.php") ?>
 

@@ -3,7 +3,6 @@ include("database.php");
 
 $movieId = $_GET['id'];
 
-// Fetch movie details
 $sql = "SELECT * FROM movies WHERE id_movie = $movieId;";
 $sql2 = "SELECT rating_value FROM ratings WHERE id_movie = $movieId;";
 $result = $conn->query($sql);
@@ -25,54 +24,44 @@ if ($result->num_rows > 0) {
     echo "0 results";
 }
 
-
 $rating = 0;
 $numVotes = 0;
-$averageRating = 0; // Default value in case there are no ratings yet
+$averageRating = 0; 
 
 if ($ratingresult->num_rows > 0) {
     $totalRating = 0;
     $numVotes = 0;
 
-    // Fetch all ratings for the movie
     while ($row2 = $ratingresult->fetch_assoc()) {
         $totalRating += $row2['rating_value'];
         $numVotes++;
     }
 
-    // Calculate the average rating
     if ($numVotes > 0) {
         $averageRating = $totalRating / $numVotes;
     }
 }
 
-// Get the user's rating for the specific movie
-// Get the user's rating for the specific movie
 $user_email = isset($_COOKIE['user_email']) ? $_COOKIE['user_email'] : null;
 
-
-
-
 if ($user_email) {
-    // SQL query to get user information for the currently logged-in user
+
     $sql = "SELECT * FROM users WHERE email = '$user_email'";
     $result3 = $conn->query($sql);
 
     if ($result3->num_rows > 0) {
-        // Fetch the user information
+
         $row = $result3->fetch_assoc();
 
-        // Check the user's role
         $user_result = $row['f_name'];
-        $admin=$row['admin']; // Assuming the role is stored in the 'f_name' column
+        $admin=$row['admin']; 
         $userId= $row['id_user'];
 
-        // Now you can use $user_result to check if the user is an admin
     }
 }
 
 if ($user_email) {
-    // SQL query to get user rating for the specific movie
+
     $user_rating_sql = "SELECT rating_value FROM ratings WHERE id_user = (SELECT id_user FROM users WHERE email = '$user_email') AND id_movie = $movieId";
     $user_rating_result = $conn->query($user_rating_sql);
 
@@ -80,24 +69,18 @@ if ($user_email) {
         $user_rating_row = $user_rating_result->fetch_assoc();
         $user_rating = $user_rating_row['rating_value'];
     } else {
-        // User hasn't rated the movie yet
+
         $user_rating = null;
     }
 }
 
-	
 if ( $active==0 && $admin == 0) {
-    // Redirect to error.php
+
     header("Location: error.php");
     exit();
 }
-    
-
-
 
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -113,20 +96,16 @@ if ( $active==0 && $admin == 0) {
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
 
-    
 </head>
 
 <body>
 <?php include("header.php") ?>
-
-   
 
     <div id="aligner">
         <div id="moviepage" >
         <!-- style="background: linear-gradient(rgba(0, 0, 0, 0.75), rgb(0, 0, 0, 0.75)), url(icons/); background-repeat: no-repeat;
   background-size: cover;
   background-position: center center;border-radius:10px; filter:" -->
-
 
             <div id="title">
             <h1>
@@ -144,13 +123,12 @@ if ( $active==0 && $admin == 0) {
             </div>
 
             <!-- <div id="description">
-                
+
             </div> -->
             <div id="combination">
                 <div id="icon">
                     <img id="extract"  src="icons/<?php echo $icon; ?>" alt=""  style=" border-radius: 10px; width:70%">
                 </div>
-            
 
                 <div id="div3">
                 <p>
@@ -159,13 +137,12 @@ if ( $active==0 && $admin == 0) {
                 </div>
 
                 <div id="categories">
-                   
+
                     <p> <b> Времетраене: </b> <label> <?php echo sprintf('%dч %02dмин', $duration / 60, $duration % 60); ?> </label> </p>
                     <p> <b> Жанр: </b> <label>    <?php echo $genre; ?>  </label> </p>
                     <p> <b> Премиера: </b> <label> <?php echo date('d-m-Y', strtotime($release_date)); ?> </label> <?php if (strtotime($release_date) > strtotime("now") && $user_email ) {
         $isSubscribed = false;
 
-        // Check if the user is subscribed to notifications for this movie
         if ($user_email) {
             $checkSubscriptionSql = "SELECT * FROM notifications WHERE id_user = $userId AND id_movie = $movieId";
             $subscriptionResult = $conn->query($checkSubscriptionSql);
@@ -203,85 +180,71 @@ if ( $active==0 && $admin == 0) {
             <label for="star1"></label>
             <input type="hidden" id="movieId" value="<?php echo $movieId; ?>">
           </div>
-          
-                    
+
                     <?php 
 
-// Assuming you already have a database connection ($conn)
-
 if ($user_email) {
-    // The user is logged in, show the rating stars
+
     echo '';
 } else {
-    // The user is not logged in, show the message
+
     echo '<p><i>Създай акаунт за гласуване</i></p>';
 }
 ?>
 
-
 <script>
     $(document).ready(function () {
-        // Attach a click event handler to each star
+
         $('.rating input').on('click', function () {
-            // Get the selected rating
+
             var rating = $(this).val();
 
-            // Get the movie ID from the hidden input
             var movieId = $('#movieId').val();
 
-            // Make an asynchronous request to rating.php
             $.ajax({
                 url: 'rating.php',
                 type: 'post',
                 data: { rating: rating, id_movie: movieId },
                 success: function (response) {
-                    // Handle the response from the server (e.g., show a message)
+
                     console.log(response);
 
-                    // Refresh the page
                     location.reload();
                 },
                 error: function (error) {
-                    // Handle errors
+
                     console.error('Error:', error);
                 }
             });
         });
 
-        // Fetch user's existing rating from PHP
         var userRating = <?php echo isset($user_rating) ? $user_rating : 0; ?>;
 
-        // Color stars based on the existing rating
         for (var i = 1; i <= userRating; i++) {
             $('#star' + i).next('label').css('color', '#1caef3');
         }
 
-        // Display the user's rating next to the label
         $('#userRatingLabel').text(userRating);
     });
 
-
-
     $(document).ready(function () {
-    // Attach a click event handler to the delete rating button
+
     $('#deleteRatingBtn').on('click', function () {
-        // Get the movie ID from the hidden input
+
         var movieId = $('#movieId').val();
 
-        // Make an asynchronous request to delete_rating.php
         $.ajax({
             url: 'delete_rating.php',
             type: 'post',
             data: { id_movie: movieId },
             success: function (response) {
-                // Handle the response from the server (e.g., show a message)
+
                 console.log(response);
 
-                // Refresh the page
                 location.reload();
             },
             error: function (error) {
-                // Handle errors
+
                 console.error('Error:', error);
             }
         });
@@ -289,9 +252,6 @@ if ($user_email) {
 });
 
 </script>
-
-
-
 
                     </div>
                 </div>    
@@ -306,13 +266,10 @@ if ($user_email) {
 ?>
         </div>
 
-       
 <!-- projectionstable -->
 
-
-
   <!--  -->
-    
+
     </div>
 
     <div id="ticketPopup" class="popup">
@@ -340,7 +297,6 @@ if ($user_email) {
     }
 ?>
 
-
 </div>
 <!-- <button onclick="test()">Click Me</button> -->
 
@@ -358,7 +314,7 @@ if ($user_email) {
   onClose: () => {
     document.body.style.overflow = '';
   }
-      
+
     });
   }
 </script>
@@ -371,28 +327,17 @@ function openTicket(button, dayIndex, projectionId, hallId) {
     var dateLabelId = "day_" + dayIndex;
     var dateLabelText = document.getElementById(dateLabelId).innerText;
     var trimmedDateText = dateLabelText.substring(0, 5);
-    
-    // Set the date in the ticket popup
+
     document.getElementById('ticketPopupDate').innerText = trimmedDateText;
 
-    // Set the selected time in the ticket popup
     document.getElementById('selectedTime').textContent = "Час: " + time;
 
-    // Construct href attribute for link with hall ID
     var movieId = "<?php echo $movieId ?>";
     var timeLink = document.getElementById('timeLink');
     timeLink.href = 'movieseats.php?id=' + movieId + '&time=' + encodeURIComponent(time) + '&date=' + encodeURIComponent(trimmedDateText) + '&hall=' + hallId + '&projection=' + projectionId;
 
-    // Prevent default behavior of the anchor tag
     event.preventDefault();
 }
-
-
-
-
-
-
-
 
 function closeTicket() {
     document.getElementById("ticketPopup").style.display = "none";
@@ -401,7 +346,7 @@ function closeTicket() {
 
     <?php
 if (isset($_COOKIE['user_name']) && $user_result == 1) {
-    // User is logged in as admin
+
     echo '<div id="edit">
         <input type="hidden" id="movieId" value="' . $movieId . '">
         <input placeholder="title" id="titleInput">
@@ -416,14 +361,12 @@ if (isset($_COOKIE['user_name']) && $user_result == 1) {
         <button style="width: 100px; height: 50px" onclick="editMovie()">Edit</button>
     </div>';
 
-    
 }
 ?>
 
-    
         <script> 
     function editMovie() {
-    // Retrieve input values
+
     const id_movie = document.getElementById('movieId').value;
     const title = document.getElementById('titleInput').value;
     const release_date = document.getElementById('dateInput').value;
@@ -435,13 +378,6 @@ if (isset($_COOKIE['user_name']) && $user_result == 1) {
     const icon = document.getElementById('iconInput').value;
     const ageRating = document.getElementById('ageRatingInput').value;
 
-    // Check if required fields are not empty
-    // if (!id_movie) {
-    //     alert('ID is a required field');
-    //     return;
-    // }
-
-    // Create a FormData object and append the values
     const formData = new FormData();
     formData.append('id_movie', id_movie);
     formData.append('title', title);
@@ -454,19 +390,17 @@ if (isset($_COOKIE['user_name']) && $user_result == 1) {
     formData.append('icon', icon);
     formData.append('age_rating', ageRating);
 
-    // Make an AJAX request to the server
     fetch('editmovie.php', {
         method: 'POST',
         body: formData
     })
     .then(response => response.text())
     .then(data => {
-        location.reload(); // Reload the page
+        location.reload(); 
     })
     .catch(error => console.error('Error:', error));
 }
     </script>
-  
 
     <a id="backtotopbutton"></a>
     <script>
@@ -486,31 +420,21 @@ btn.on('click', function(e) {
 });
     </script>
 
-
 <script>
-    
-  // Load the image
+
  var image = document.getElementById('extract');
 
-  // Create a vibrant.js instance with the image
   var vibrant = new Vibrant(image);
   var palette = vibrant.swatches();
 
-  // Get the vibrant color from the palette
-  var vibrantColor = palette.Vibrant.getHex() || '#021424'; // Default to #021424 if Vibrant color is not available
+  var vibrantColor = palette.Vibrant.getHex() || '#021424'; 
 
-  // Create secondary color for the edges
   var secondaryColor = palette.DarkVibrant.getHex() || '#000000';
 
-  // Create a gradient with vibrant color in the middle and secondary colors on both edges
   var gradient = `linear-gradient(to right, ${secondaryColor} 0%, ${vibrantColor} 50%, ${secondaryColor} 100%)`;
 
-  // Apply the gradient to the body background
   document.body.style.background = gradient;
 
-
-
-  
 </script>
 
 <script src="main.js"></script>
@@ -518,17 +442,17 @@ btn.on('click', function(e) {
 <script>
     $(document).ready(function() {
         $('#notifbutton').click(function() {
-            // Make an AJAX request to handle the notification
+
             $.ajax({
-                url: 'handle_notification.php', // Change the URL to your server-side PHP script
+                url: 'handle_notification.php', 
                 type: 'POST',
                 data: {
-                    movieId: <?php echo $movieId; ?>, // Pass the movie ID to identify the movie
-                    userId: <?php echo $userId; ?>, // Pass the user ID to identify the user
+                    movieId: <?php echo $movieId; ?>, 
+                    userId: <?php echo $userId; ?>, 
                 },
                 success: function(response) {
                     location.reload();
-                    // Handle the response, you can update the UI here if needed
+
                     console.log(response);
                 },
                 error: function(error) {
@@ -538,17 +462,7 @@ btn.on('click', function(e) {
         });
     });
 
-
-
-  
-
-   
 </script>
-
-
-
-
-
 
 <br> <br> <br>
 <?php include("footer.php"); ?>
