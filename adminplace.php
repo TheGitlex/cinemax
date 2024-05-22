@@ -192,7 +192,8 @@ echo '</div>';
 ?>
     </div>
 
-            <div style="margin-top: 1rem; background-color:rgba(132, 132, 132, 0.407); padding:10px; border-radius:5px; border: 5px solid black;">
+            <div id="userList" style="margin-top: 1rem; background-color:rgba(132, 132, 132, 0.407); padding:10px; border-radius:5px; border: 5px solid black;">
+            <input type="text" id="searchInput" onkeyup="filterUsers()" placeholder="Search for users..."> <br>
     <?php
    $userssql = "SELECT * FROM users ORDER BY access ASC, email ASC"; 
    $result = mysqli_query($conn, $userssql);
@@ -210,6 +211,24 @@ echo '</div>';
    }
     ?>
 </div>
+<script>
+        function filterUsers() {
+            var input, filter, userList, users, email, i;
+            input = document.getElementById('searchInput');
+            filter = input.value.toLowerCase();
+            userList = document.getElementById('userList');
+            users = userList.getElementsByClassName('usera');
+
+            for (i = 0; i < users.length; i++) {
+                email = users[i].textContent || users[i].innerText;
+                if (email.toLowerCase().indexOf(filter) > -1) {
+                    users[i].style.display = "";
+                } else {
+                    users[i].style.display = "none";
+                }
+            }
+        }
+    </script>
 
 		</div>
 
