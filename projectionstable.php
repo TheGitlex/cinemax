@@ -38,7 +38,7 @@ $movieId = $_GET['id'] ?? null;
 if ($movieId) {
     $projectionsFound = false; 
 
-    for ($i = 0; $i < 7; $i++) {
+    for ($i = 0; $i < 6; $i++) {
         $date = date('Y-m-d', strtotime("+$i days"));
 
         $query = "SELECT p.id_projection, DATE_FORMAT(p.time, '%H:%i') AS formatted_time, p.id_hall
